@@ -1,1 +1,10 @@
 console.log("testing...")
+
+
+
+
+// test that we can get data from the backend____________________________________
+const BACKEND_URL = 'localhost:3000';
+fetch(`${BACKEND_URL}/test`)
+  .then(response => response.json())
+  .then(parsedResponse => console.log(parsedResponse));
