@@ -2,7 +2,7 @@
 # end
 
 # TEST ____________________________________________
-class ApplicationController < ActionContoller::API
+class ApplicationController < ActionController::API
     def test
       render json: { test: "success" }
     end
