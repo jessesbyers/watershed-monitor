@@ -3,20 +3,36 @@ let ADD_OBS = document.getElementById("add_obs")
 let VIEW_OBS = document.getElementById("view_obs")
 let ADD_MAP = document.getElementById("add_map")
 let VIEW_MAP = document.getElementById("view_map")
+let MAP = document.getElementById("map")
 
 
-//   intimap function initiates rendering of the map on the DOM
+//   initMap function initiates rendering of the map on the DOM, and sets event listener for adding maps
 function initMap() {
     // placeholder for center of map for home view - (replace with data from Map object instance fetched from backend)
     let mapCenter =  { lat: 45, lng: -90} 
     // let mapCenter =  { lat: 45.0007, lng: -73.1836} 
-
     let map = new google.maps.Map(document.getElementById('map'), {zoom: 3, center: mapCenter});
     // code ofr adding center marker - don't need, but use for posting observation instance data
     // let marker = new google.maps.Marker({position: mapCenter, map: map});
+
+    map.addListener('click', function(e) {
+        console.log("clicked")
+        placeMarker(e.latLng, map);
+      });
 }
 
-document.addEventListener("DOMContentLoaded")
+function placeMarker(latLng, map) {
+    var marker = new google.maps.Marker({
+      position: latLng,
+      map: map
+    });
+    console.log("marker placed")
+  }
+
+
+
+
+
 
 
 
