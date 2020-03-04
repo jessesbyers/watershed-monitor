@@ -1,9 +1,16 @@
-# Rails.application.routes.draw do
-#   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-# end
 
 
-# TEST _________________________________________
+
 Rails.application.routes.draw do
+
+  # TEST _________________________________________
   get '/test', to: 'application#test'
+
+  get '/maps', to: 'maps#index'
+  get '/maps/:id', to: 'maps#show'
+
+
+  get '/observations', to: 'observations#index'
+  get '/observations/:id', to: 'observations#show'
+
 end
