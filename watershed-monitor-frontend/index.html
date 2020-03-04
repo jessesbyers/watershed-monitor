@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous"> </head>
     <link rel="stylesheet" href="styles.css">
+
     <title>Watershed Monitor</title>
   </head>
   <body>
@@ -36,10 +37,10 @@
 
     <footer class='text-xs-left footer bg-inverse text-white navbar-fixed-bottom'>2020 - Jesse Byers - <a href="https://github.com/jessesbyers/watershed-monitor">Visit Project on GitHub</a></footer>
 
+    <script type="application/javascript" src="src/env.js" charset="UTF-8"></script>
     <script type="application/javascript" src="src/index.js" charset="UTF-8"></script>
-
     <!-- script for initializing the map render via a callback function -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4WPYmC60DsKf3lkbaTfDVP9KzA9Ny9I&callback=initMap"
+    <script id="api" async defer src="https://maps.googleapis.com/maps/api/js?key=#{API_KEY}&callback=initMap"
     type="text/javascript"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
