@@ -2,6 +2,8 @@
 function initMap() {
     // placeholder for center of map for testing - eventually replace with data from Map object fetched from backend
     let mapCenter =  { lat: 44.8107, lng: -73.0836} 
+    // let mapCenter =  { lat: 45.0007, lng: -73.1836} 
+
     let map = new google.maps.Map(document.getElementById('map'), {zoom: 12, center: mapCenter});
     let marker = new google.maps.Marker({position: mapCenter, map: map});
 }
