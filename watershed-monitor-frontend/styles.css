@@ -55,6 +55,12 @@ h1.float-xs-right {
     font-size: 3rem;
 }
 
+#map {
+    height: 400px;  
+    width: 100%;  
+    background-color: grey;
+   }
+
 
 /* .field_with_errors {
     padding: 2px;
