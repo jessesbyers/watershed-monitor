@@ -26,6 +26,9 @@ function placeMarker(latLng, map) {
       position: latLng,
       map: map
     });
+    console.log(marker.getPosition().lat())
+    console.log(marker.getPosition().lng())
+
     console.log("marker placed")
   }
 
