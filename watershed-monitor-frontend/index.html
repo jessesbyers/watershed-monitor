@@ -36,10 +36,10 @@
     </div>
 
     <footer class='text-xs-left footer bg-inverse text-white navbar-fixed-bottom'>2020 - Jesse Byers - <a href="https://github.com/jessesbyers/watershed-monitor">Visit Project on GitHub</a></footer>
-
-    <script type="application/javascript" src="src/env.js" charset="UTF-8"></script>
+<!-- not working  - trying to set api key from env.js file -->
+    <script type="application/javascript" src="src/env.js&callback=setApi" charset="UTF-8"></script>
     <script type="application/javascript" src="src/index.js" charset="UTF-8"></script>
-    <!-- script for initializing the map render via a callback function -->
+<!-- script for initializing the map render via a callback function - need to interpolate API key-->
     <script id="api" async defer src="https://maps.googleapis.com/maps/api/js?key=#{API_KEY}&callback=initMap"
     type="text/javascript"></script>
 
