@@ -1,13 +1,20 @@
 const BACKEND_URL = "http://localhost:3000"
-let ADD_OBS = document.getElementById("add_obs")
-let VIEW_OBS = document.getElementById("view_obs")
-let ADD_MAP = document.getElementById("add_map")
-let VIEW_MAP = document.getElementById("view_map")
-let MAP = document.getElementById("map")
+let addObs = document.getElementById("add_obs")
+let violations = document.getElementById("violations")
+let bestPractices = document.getElementById("best_practices")
+let waterData = document.getElementById("data")
+let form = document.querySelector("header")
+
+//   form.style.display = "block";
+
+
+// let MAP = document.getElementById("map")
 
 
 //   initMap function initiates rendering of the map on the DOM, and sets event listener for adding maps
 function initMap() {
+    form.style.display = "none";
+
     // placeholder for center of map for home view - (replace with data from Map object instance fetched from backend)
     let mapCenter =  { lat: 45, lng: -90} 
     // let mapCenter =  { lat: 45.0007, lng: -73.1836} 
@@ -18,8 +25,7 @@ function initMap() {
     map.addListener('click', function(e) {
         console.log("clicked on map location for observation")
         placeMarker(e.latLng, map);
-        showNewObservationForm()
-        addMarkerToDatabase()
+
       });
 }
 
@@ -28,15 +34,20 @@ function placeMarker(latLng, map) {
       position: latLng,
       map: map
     });
-    console.log(marker.getPosition().lat())
-    console.log(marker.getPosition().lng())
     console.log("marker placed")
+    let markerCoordinates = [marker.getPosition().lat(), marker.getPosition().lng()]
+    showNewObservationForm(markerCoordinates)
   }
 
-  function showNewObservationForm() {
-      console.log("show observation form to create new observation")
-      let form = document.querySelector("form")
-    //   form.innerHTML = 
+  function showNewObservationForm(markerCoordinates) {
+      form.style.display = "block";
+      console.log("new observation form displayed")
+
+
+
+
+    //   form.style.display = "none";
+    addMarkerToDatabase()
   }
 
 
