@@ -1,9 +1,13 @@
 map1 = {
-    name: "TestMap 1"
+    name: "TestMap 1",
+    latitude: 44.8107,
+    longitude: -73.0836
 }
 
 map2 = {
-    name: "TestMap 2"
+    name: "TestMap 2",
+    latitude: 45.0007,
+    longitude: -73.1836
 }
 
 
