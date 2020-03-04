@@ -24,12 +24,26 @@
             </div>
     </nav>
 
-    <!-- <header class="htop">
-    </header> -->
+    <header class="htop">
+      <form>
+        <input type="text" name="name" value="" placeholder="Enter a name for this location"/>
+        <label for="violation">Violation</label>
+        <input type="radio" name="category" value="Violation" >
+        <label for="best_practice">Best Practice</label>
 
+        <input type="radio" name="category" value="Best Practice" >
+        <label for="water_monitoring_data">Water Monitoring Data</label>
+
+        <input type="radio" name="category" value="Water monitoring Data" >
+
+        <input type="text" name="description" value="" placeholder="Enter a description" />
+        <input type="submit" name="submit" value="Create New Observation" />
+      </form>  
+    </header>
     <!-- <div class="container content" role="main">
-        <h1>Sample text - replace me!</h1>
+  
     </div> -->
+
 
     <div class = "map" id="map">
     </div>

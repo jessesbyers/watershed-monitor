@@ -12,12 +12,14 @@ function initMap() {
     let mapCenter =  { lat: 45, lng: -90} 
     // let mapCenter =  { lat: 45.0007, lng: -73.1836} 
     let map = new google.maps.Map(document.getElementById('map'), {zoom: 3, center: mapCenter});
-    // code ofr adding center marker - don't need, but use for posting observation instance data
+    // code for adding center marker - don't need, but use for posting observation instance data
     // let marker = new google.maps.Marker({position: mapCenter, map: map});
 
     map.addListener('click', function(e) {
         console.log("clicked")
         placeMarker(e.latLng, map);
+        showNewObservationForm()
+        addMarkerToDatabase()
       });
 }
 
@@ -28,8 +30,21 @@ function placeMarker(latLng, map) {
     });
     console.log(marker.getPosition().lat())
     console.log(marker.getPosition().lng())
-
     console.log("marker placed")
+  }
+
+  function showNewObservationForm() {
+      console.log("show observation form to create new observation")
+      let form = document.querySelector("form")
+      form.innerHTML = `
+      
+      `
+  }
+
+
+  function addMarkerToDatabase() {
+      console.log("add marker to database")
+
   }
 
 
