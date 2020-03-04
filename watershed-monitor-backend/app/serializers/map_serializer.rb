@@ -1,4 +1,4 @@
 class MapSerializer
   include FastJsonapi::ObjectSerializer
-  attributes 
+  attributes :name, :observations
 end
