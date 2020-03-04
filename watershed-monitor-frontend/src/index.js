@@ -16,7 +16,7 @@ function initMap() {
     // let marker = new google.maps.Marker({position: mapCenter, map: map});
 
     map.addListener('click', function(e) {
-        console.log("clicked")
+        console.log("clicked on map location for observation")
         placeMarker(e.latLng, map);
         showNewObservationForm()
         addMarkerToDatabase()
@@ -36,9 +36,7 @@ function placeMarker(latLng, map) {
   function showNewObservationForm() {
       console.log("show observation form to create new observation")
       let form = document.querySelector("form")
-      form.innerHTML = `
-      
-      `
+    //   form.innerHTML = 
   }
 
 

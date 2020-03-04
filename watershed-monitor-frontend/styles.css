@@ -14,11 +14,6 @@ html, body {
     padding: 0;
   }
 
-/* body {
-    height: 90%;
-    width: 100%;
-} */
-
 .content {
     margin-bottom: 80px;
 }
@@ -67,9 +62,9 @@ h1.float-xs-right {
     background-color: grey;
    }
 
-   form {
-       color: black;
-   }
+form {
+    color: black;
+}
 
 
 /* .field_with_errors {
@@ -88,4 +83,9 @@ h1.float-xs-right {
 
 .invalid-feedback {
     color: red;
+} */
+
+/* body {
+    height: 90%;
+    width: 100%;
 } */
