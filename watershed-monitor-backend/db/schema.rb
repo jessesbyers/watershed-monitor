@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2020_03_03_202639) do
 
   create_table "observations", force: :cascade do |t|
     t.string "name"
-    t.string "type"
+    t.string "category"
     t.string "description"
     t.float "latitude"
     t.float "longitude"
