@@ -12,7 +12,7 @@ obs1 = {
     category: "Violation",
     description: "Manure spread on fields after allowed date",
     latitude: 44.811345,
-    longitude: 73.149572,
+    longitude: -73.149572,
     map_id: 1
 }
 
@@ -21,7 +21,7 @@ obs2 = {
     category: "Best Practice",
     description: "Cover crops used extensively",
     latitude: 44.819235,
-    longitude: 73.137827,
+    longitude: -73.137827,
     map_id: 1
 }
 
@@ -30,7 +30,7 @@ obs3 = {
     category: "Data",
     description: "fake data",
     latitude: 44.808884,
-    longitude: 73.169820,
+    longitude: -73.169820,
     map_id: 1
 }
 
@@ -39,7 +39,7 @@ obs4 = {
     category: "Violation",
     description: "cows grazing in floodplain",
     latitude: 45.007420,
-    longitude: 73.091199,
+    longitude: -73.091199,
     map_id: 2
 }
 
@@ -48,7 +48,7 @@ obs5 = {
     category: "Best Practice",
     description: "Stormwater diverted and contained in catchment system",
     latitude: 44.958852,
-    longitude: 73.164499,
+    longitude: -73.164499,
     map_id: 2
 }
 
@@ -57,7 +57,7 @@ obs6 = {
     category: "Data",
     description: "fake data",
     latitude: 44.935890, 
-    longitude: 73.196943,
+    longitude: -73.196943,
     map_id: 2
 }
 
