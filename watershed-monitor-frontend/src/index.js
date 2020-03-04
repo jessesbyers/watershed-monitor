@@ -1,29 +1,60 @@
+const BACKEND_URL = "http://localhost:3000"
+let ADD_OBS = document.getElementById("add_obs")
+let VIEW_OBS = document.getElementById("view_obs")
+let ADD_MAP = document.getElementById("add_map")
+let VIEW_MAP = document.getElementById("view_map")
+
+
 //   intimap function initiates rendering of the map on the DOM
 function initMap() {
-    // placeholder for center of map for testing - eventually replace with data from Map object fetched from backend
-    let mapCenter =  { lat: 44.8107, lng: -73.0836} 
+    // placeholder for center of map for home view - (replace with data from Map object instance fetched from backend)
+    let mapCenter =  { lat: 45, lng: -90} 
     // let mapCenter =  { lat: 45.0007, lng: -73.1836} 
 
-    let map = new google.maps.Map(document.getElementById('map'), {zoom: 12, center: mapCenter});
-    let marker = new google.maps.Marker({position: mapCenter, map: map});
+    let map = new google.maps.Map(document.getElementById('map'), {zoom: 3, center: mapCenter});
+    // code ofr adding center marker - don't need, but use for posting observation instance data
+    // let marker = new google.maps.Marker({position: mapCenter, map: map});
 }
 
+document.addEventListener("DOMContentLoaded")
 
-//   test that we can fetch seed data from the backend_________________________________
-const BACKEND_URL = "http://localhost:3000"
-fetch(`${BACKEND_URL}/maps`)
-  .then(response => response.json())
-  .then(parsedResponse => console.log(parsedResponse));
 
-fetch(`${BACKEND_URL}/maps/1`)
-  .then(response => response.json())
-  .then(parsedResponse => console.log(parsedResponse));
 
-fetch(`${BACKEND_URL}/observations`)
-  .then(response => response.json())
-  .then(parsedResponse => console.log(parsedResponse));
 
-fetch(`${BACKEND_URL}/observations/1`)
-  .then(response => response.json())
-  .then(parsedResponse => console.log(parsedResponse));
+// takes in argument of map and uses map.id in url for fetch
+function getObservationsOnMap(map) {
+    fetch(`${BACKEND_URL}/maps/1`)
+    .then(response => response.json())
+    .then(json => {
+        console.log(json)
+        console.log(json.data.attributes.observations)
+        let observations = json.data.attributes.observations
+        observations.forEach(renderObservation)
+    })
+}
+  function renderObservation() {
+      console.log("render observation function")
 
+  }
+        
+//         obs => {
+//           console.log(obs)
+//           let position = { lat: obs.latitude, lng: obs.longitude}
+//           let marker = new google.maps.Marker({position: position, map: map});
+
+//       })
+//   });
+
+//   fetch calls for various forms of json data _________________________________
+
+// fetch(`${BACKEND_URL}/observations`)
+//   .then(response => response.json())
+//   .then(parsedResponse => console.log(parsedResponse));
+
+// fetch(`${BACKEND_URL}/observations/1`)
+//   .then(response => response.json())
+//   .then(parsedResponse => console.log(parsedResponse));
+
+// fetch(`${BACKEND_URL}/maps`)
+//   .then(response => response.json())
+//   .then(parsedResponse => console.log(parsedResponse));
