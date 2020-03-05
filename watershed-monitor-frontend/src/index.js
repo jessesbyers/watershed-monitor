@@ -14,9 +14,10 @@ let submit = document.getElementById("submit_observation")
 function initMap() {
     form.style.display = "none";
     // placeholder for center of map for home view
-    // let mapCenter =  { lat: 45, lng: -90} 
-    let mapCenter =  { lat: 44.8007, lng: -73.100} 
-    let map = new google.maps.Map(document.getElementById('map'), {zoom: 12, center: mapCenter});
+    let mapCenter =  { lat: 45, lng: -90} 
+    // let mapCenter =  { lat: 44.8007, lng: -73.100} 
+    // set zoom 12 for local view, zoom 3 for North America
+    let map = new google.maps.Map(document.getElementById('map'), {zoom: 3, center: mapCenter});
     // code for adding center marker - don't need, but use for posting observation instance data
     // let marker = new google.maps.Marker({position: mapCenter, map: map});
 
@@ -26,6 +27,7 @@ function initMap() {
             placeMarker(e.latLng, map);
             // remove listener so only one marker can be added
             google.maps.event.removeListener(addMarkerListener)
+            console.log("addMarkerListener removed")
         });
     })
 }
@@ -52,12 +54,10 @@ function showNewObservationForm(markerCoordinates) {
         let formData = {
             name: document.getElementById("form_name").value,
             description: document.getElementById("form_description").value,
-            category_id: document.getElementById("category").value,
+            category_id: parseInt(document.getElementById("category").value),
             latitude: markerCoordinates[0],
             longitude: markerCoordinates[1]
         }
-
-
 
         form.style.display = "none";
         console.log("form disappears")
@@ -68,12 +68,28 @@ function showNewObservationForm(markerCoordinates) {
 function addMarkerToDatabase(formData) {
     console.log(formData)
 
-    // NEXT STEPS: WRITE CONFIG OBJECT AND FETCH CALL TO ADD OBSERVATION TO DATABASE, 
-    // THEN RE-RENDER MAP
-
     let configObj = {
+        headers: {
+            "method": "POST",
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(formData)
+      };
 
-    }
+      fetch("http://localhost:3000/observations", configObj)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(object) {
+            console.log(object);
+        })
+        .catch(function(error) {
+            alert("ERROR!!!!");
+            console.log(error.message);
+        });
+
+    // THEN RE-RENDER MAP
 
     console.log("add marker to database")
 }

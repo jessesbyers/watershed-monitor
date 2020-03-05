@@ -6,5 +6,6 @@ Rails.application.routes.draw do
 
   get '/observations', to: 'observations#index'
   get '/observations/:id', to: 'observations#show'
+  
 
 end
