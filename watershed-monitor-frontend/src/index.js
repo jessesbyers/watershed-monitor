@@ -9,6 +9,7 @@ let map
 
 
 
+
 // initMap function is called in script tag on index.html as page is loaded: 
 // Initiates rendering of the map on the DOM, and sets event listener for adding maps
 function initMap(map) {
@@ -20,11 +21,10 @@ function initMap(map) {
     // let map = new google.maps.Map(document.getElementById('map'), {zoom: 3, center: mapCenter});
     map = new google.maps.Map(document.getElementById('map'), {zoom: 12, center: mapCenter});
     // after map is loaded, fetch and render markers for all observations already in database
-    fetchObservations(map)
-    renderMarker(obs, map)
 
     // event listener so user can click "Add" button when ready to create a new observation
     addObs.addEventListener('click', function() { 
+        // console.log(map)
         // event listener to place marker on map with click on location
         let addMarkerListener = map.addListener('click', function(e) {
             console.log("clicked on map location for observation")
@@ -34,7 +34,15 @@ function initMap(map) {
             console.log("addMarkerListener removed")
         });
     })
+
+    fetchObservations(map)
+    renderMarker(obs, map)
 }
+
+
+
+
+
 
 // placeMarker function is called in event listener for adding observations
 // creates marker object instance, sets coordinates of marker
@@ -103,15 +111,13 @@ function addMarkerToDatabase(formData, map) {
 // function called in addMarkerToDatabase
 // fetches all observation data form database
 function fetchObservations(map) {
-    console.log("placeholder for fetch observations function")
+    console.log("fetch observations function")
 
     fetch(`${BACKEND_URL}/observations`)
         .then(response => response.json())
         .then(json => {
             let observations = json.data
-            // console.log(observations)
             observations.forEach(obs => {
-                // console.log(obs.attributes.latitude)
                 renderMarker(obs, map)
             })
         })
@@ -121,34 +127,22 @@ function fetchObservations(map) {
 // renders a marker on the map for each observation in the database and sets an event listener on each for info window
 function renderMarker(obs, map) {
     console.log("render marker function")
-    // console.log(obs)
     let obsMarker = new google.maps.Marker({
         position: {lat: obs.attributes.latitude, lng: obs.attributes.longitude},
         map: map
       });
-    //   console.log(obsMarker)
       attachMarkerInfoWindow(obs, obsMarker)
-
-    // NEXT STEP: set event listener to click on marker to show info window with all details
-
 }
 
-
-
-
+// called in renderMarker function
+// creates an infoWindow for each marker with event listener to open on click
 function attachMarkerInfoWindow(obs, obsMarker) {
-    console.log(obs)
-    console.log("inside attachMarkerInfoWindow function")
-
-    // let observationDetails = `***${obs.attributes.category.name}***${obs.attributes.name}: ${obs.attributes.description} (${obs.attributes.latitude}, ${obs.attributes.longitude})`
-
     let observationDetails = `
         <h6>${obs.attributes.name}</h6>
         <p><em>${obs.attributes.category.name}</em></p>
         <p>${obs.attributes.description}</p>
         <p>${obs.attributes.latitude}, ${obs.attributes.longitude}</p>
     `
-
     let infowindow = new google.maps.InfoWindow({
       content: observationDetails
     });
@@ -156,9 +150,8 @@ function attachMarkerInfoWindow(obs, obsMarker) {
     obsMarker.addListener('click', function() {
       infowindow.open(obsMarker.get('map'), obsMarker);
     });
-  }
-
-
+    console.log("InfoWindows added with event listener")
+}
 
 
 // need to add delete or edit function
