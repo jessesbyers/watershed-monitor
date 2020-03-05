@@ -48,6 +48,7 @@ function showNewObservationForm(markerCoordinates) {
     submit.addEventListener('click', function () {
         event.preventDefault();
 
+        // build object with data from form and marker to send to backend to create observation instance
         let formData = {
             name: document.getElementById("form_name").value,
             description: document.getElementById("form_description").value,
@@ -81,7 +82,7 @@ function addMarkerToDatabase(formData) {
 
 
 
-
+// ------------ FETCH CALLS ---------------------------------
 
 // takes in argument of map and uses map.id in url for fetch
 // function getViolationsOnMap(map) {
