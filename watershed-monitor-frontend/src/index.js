@@ -77,7 +77,7 @@ function addMarkerToDatabase(formData) {
         body: JSON.stringify(formData)
       };
 
-      fetch("http://localhost:3000/observations", configObj)
+      fetch(`${BACKEND_URL}/observations`, configObj)
         .then(function(response) {
             return response.json();
         })

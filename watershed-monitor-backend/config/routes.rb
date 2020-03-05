@@ -1,11 +1,16 @@
 Rails.application.routes.draw do
 
-  get '/categories', to: 'categories#index'
-  get '/categories/:id', to: 'categories#show'
+
+  resources :categories, only: [:index, :show]
+  # get '/categories', to: 'categories#index'
+  # get '/categories/:id', to: 'categories#show'
 
 
-  get '/observations', to: 'observations#index'
-  get '/observations/:id', to: 'observations#show'
+
+ resources :observations, only: [:new, :create, :index, :show]
+  #  get '/observations', to: 'observations#index'
+  # get '/observations/:id', to: 'observations#show'
   
+
 
 end
