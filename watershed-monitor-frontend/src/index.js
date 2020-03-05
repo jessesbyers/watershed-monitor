@@ -34,7 +34,6 @@ function initMap(map) {
             console.log("addMarkerListener removed")
         });
     })
-
     fetchObservations(map)
     renderMarker(obs, map)
 }
@@ -60,6 +59,7 @@ function placeMarker(latLng, map) {
 // showNewObservationForm is called in placeMarker function
 // displays form to collect observation data from user, created formData object, and hides form
 function showNewObservationForm(markerCoordinates, map) {
+    document.querySelector("form").reset();
     form.style.display = "block";
     console.log("new observation form displayed")
 
