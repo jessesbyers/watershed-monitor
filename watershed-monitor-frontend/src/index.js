@@ -3,6 +3,7 @@ const BACKEND_URL = "http://localhost:3000"
 let addObs = document.getElementById("add_obs")
 let form = document.querySelector("header")
 let submit = document.getElementById("submit_observation")
+let map
 // let filter = document.getElementById("filter_data")
 // let about = document.getElementById("about")
 
@@ -10,14 +11,14 @@ let submit = document.getElementById("submit_observation")
 
 // initMap function is called in script tag on index.html as page is loaded: 
 // Initiates rendering of the map on the DOM, and sets event listener for adding maps
-function initMap() {
+function initMap(map) {
     form.style.display = "none";
     // placeholder for center of map for home view
     // let mapCenter =  { lat: 45, lng: -90} 
     let mapCenter =  { lat: 44.8007, lng: -73.100} 
     // set zoom 12 for local view, zoom 3 for North America
     // let map = new google.maps.Map(document.getElementById('map'), {zoom: 3, center: mapCenter});
-    let map = new google.maps.Map(document.getElementById('map'), {zoom: 12, center: mapCenter});
+    map = new google.maps.Map(document.getElementById('map'), {zoom: 12, center: mapCenter});
 
 
     // event listener so user can click "Add" button when ready to create a new observation
@@ -43,12 +44,12 @@ function placeMarker(latLng, map) {
     console.log("marker placed")
 
     let markerCoordinates = [marker.getPosition().lat(), marker.getPosition().lng()]
-    showNewObservationForm(markerCoordinates)
+    showNewObservationForm(markerCoordinates, map)
 }
 
 // showNewObservationForm is called in placeMarker function
 // displays form to collect observation data from user, created formData object, and hides form
-function showNewObservationForm(markerCoordinates) {
+function showNewObservationForm(markerCoordinates, map) {
     form.style.display = "block";
     console.log("new observation form displayed")
 
@@ -66,13 +67,13 @@ function showNewObservationForm(markerCoordinates) {
 
         form.style.display = "none";
         console.log("form disappears")
-        addMarkerToDatabase(formData)    
+        addMarkerToDatabase(formData, map)    
     })
 }
 
 // addMarkerToDatabase function called in ShowNewObservationForm function
 // sends a post request to backend to create new observation instance from formData and persist it in the database
-function addMarkerToDatabase(formData) {
+function addMarkerToDatabase(formData, map) {
 
     let configObj = {
         method: "POST",
@@ -89,7 +90,7 @@ function addMarkerToDatabase(formData) {
         })
         .then(function() {
             console.log("add marker to database")
-            fetchObservations()
+            fetchObservations(map)
         })
         .catch(function(error) {
             alert("ERROR! Please Try Again");
@@ -99,7 +100,7 @@ function addMarkerToDatabase(formData) {
 
 // function called in addMarkerToDatabase
 // fetches all observation data form database
-function fetchObservations() {
+function fetchObservations(map) {
     console.log("placeholder for fetch observations function")
 
     fetch(`${BACKEND_URL}/observations`)
@@ -109,16 +110,26 @@ function fetchObservations() {
             // console.log(observations)
             observations.forEach(obs => {
                 // console.log(obs.attributes.latitude)
-                renderMarker(obs)
+                renderMarker(obs, map)
             })
         })
 }
 
-function renderMarker(obs) {
-                    // set marker using lat/long data
-                // set event listener to click on marker to show info window with all details
+// function called in fetchObservations
+// renders a marker on the map for each observation and sets an event listener on each for info window
+function renderMarker(obs, map) {
+    // set marker using lat/long data
     console.log("render marker function")
-    console.log(obs)
+    // console.log(obs)
+
+    let obsMarker = new google.maps.Marker({
+        position: {lat: obs.attributes.latitude, lng: obs.attributes.longitude},
+        map: map
+      });
+      console.log(obsMarker)
+    // set event listener to click on marker to show info window with all details
+
+
 }
 
 
