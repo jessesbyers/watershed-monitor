@@ -23,7 +23,7 @@ class ObservationsController < ApplicationController
     private
 
     def observation_params
-        params.permit(:name, :description, :category_id, :latitude, :longitude)
+        params.require(:observation).permit(:name, :description, :category_id, :latitude, :longitude)
     end
 
 end

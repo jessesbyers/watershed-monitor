@@ -1,15 +1,15 @@
-// declaring variables to be used throughout
+// declaring global variables to be used throughout
 const BACKEND_URL = "http://localhost:3000"
 let addObs = document.getElementById("add_obs")
-let violations = document.getElementById("violations")
-let bestPractices = document.getElementById("best_practices")
-let waterData = document.getElementById("data")
 let form = document.querySelector("header")
 let submit = document.getElementById("submit_observation")
+// let violations = document.getElementById("violations")
+// let bestPractices = document.getElementById("best_practices")
+// let waterData = document.getElementById("data")
 
 
 
-// initMap function is called in script tag on index.html: 
+// initMap function is called in script tag on index.html as page is loaded: 
 // Initiates rendering of the map on the DOM, and sets event listener for adding maps
 function initMap() {
     form.style.display = "none";
@@ -18,20 +18,22 @@ function initMap() {
     // let mapCenter =  { lat: 44.8007, lng: -73.100} 
     // set zoom 12 for local view, zoom 3 for North America
     let map = new google.maps.Map(document.getElementById('map'), {zoom: 3, center: mapCenter});
-    // code for adding center marker - don't need, but use for posting observation instance data
-    // let marker = new google.maps.Marker({position: mapCenter, map: map});
 
+    // event listener so user can click "Add" button when ready to create a new observation
     addObs.addEventListener('click', function() { 
+        // event listener to place marker on map with click on location
         let addMarkerListener = map.addListener('click', function(e) {
             console.log("clicked on map location for observation")
             placeMarker(e.latLng, map);
-            // remove listener so only one marker can be added
+            // remove listener so only one marker can be added at a time
             google.maps.event.removeListener(addMarkerListener)
             console.log("addMarkerListener removed")
         });
     })
 }
 
+// placeMarker function is called in event listener for adding observations
+// creates marker object instance, sets coordinates of marker
 function placeMarker(latLng, map) {
     let marker = new google.maps.Marker({
       position: latLng,
@@ -43,6 +45,8 @@ function placeMarker(latLng, map) {
     showNewObservationForm(markerCoordinates)
 }
 
+// showNewObservationForm is called in placeMarker function
+// displays form to collect observation data from user, created formData object, and hides form
 function showNewObservationForm(markerCoordinates) {
     form.style.display = "block";
     console.log("new observation form displayed")
@@ -65,8 +69,9 @@ function showNewObservationForm(markerCoordinates) {
     })
 }
 
+// addMarkerToDatabase function called in ShowNewObservationForm function
+// sends a post request to backend to create new observation instance from formData and persist it in the database
 function addMarkerToDatabase(formData) {
-    console.log(formData)
 
     let configObj = {
         method: "POST",
@@ -79,24 +84,21 @@ function addMarkerToDatabase(formData) {
 
       return fetch(`${BACKEND_URL}/observations`, configObj)
         .then(function(response) {
-            return response.json();
+            response.json();
         })
-        .then(function(object) {
-            console.log(formData)
-
-            console.log(object);
+        .then(function() {
+            console.log("add marker to database")
+            renderObservations()
         })
         .catch(function(error) {
-            alert("ERROR!!!!");
+            alert("ERROR! Please Try Again");
             console.log(error.message);
         });
-
-    // THEN RE-RENDER MAP
-
-    console.log("add marker to database")
 }
 
-
+function renderObservations() {
+    console.log("placeholder for render observations function")
+}
 
 
 
