@@ -30,20 +30,19 @@
     <header class="htop">
       <form>
         <label for="name">Location Name</label>
-        <input type="text" name="name" value=""/>
+        <input id="form_name" type="text" name="name" value=""/>
         <label for="description">Description</label>
 
-        <input type="textarea" name="description" value="" placeholder="Enter details about your observation" />
+        <input id="form_description" type="textarea" name="description" value="" placeholder="Enter details about your observation" />
 
         <select id="category">
           <option disabled selected value> -- Select a Category -- </option>
-
-          <option value="violation">Violation</option>
-          <option value="best_practice">Best Practice</option>
-          <option value="water_quality_data">Water Quality Data</option>
+          <option value="1">Violation</option>
+          <option value="2">Best Practice</option>
+          <option value="3">Water Quality Data</option>
         </select>
 
-        <input type="submit" name="submit" value="Create New Observation" />
+        <input type="submit" name="submit" id="submit_observation" value="Create New Observation" />
       </form>  
     </header>
 

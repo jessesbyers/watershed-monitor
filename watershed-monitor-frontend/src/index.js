@@ -1,36 +1,36 @@
+// declaring variables to be used throughout
 const BACKEND_URL = "http://localhost:3000"
 let addObs = document.getElementById("add_obs")
 let violations = document.getElementById("violations")
 let bestPractices = document.getElementById("best_practices")
 let waterData = document.getElementById("data")
 let form = document.querySelector("header")
-
-//   form.style.display = "block";
-
-
-// let MAP = document.getElementById("map")
+let submit = document.getElementById("submit_observation")
 
 
-//   initMap function initiates rendering of the map on the DOM, and sets event listener for adding maps
+
+// initMap function is called in script tag on index.html: 
+// Initiates rendering of the map on the DOM, and sets event listener for adding maps
 function initMap() {
     form.style.display = "none";
-
-    // placeholder for center of map for home view - (replace with data from Map object instance fetched from backend)
-    let mapCenter =  { lat: 45, lng: -90} 
-    // let mapCenter =  { lat: 45.0007, lng: -73.1836} 
-    let map = new google.maps.Map(document.getElementById('map'), {zoom: 3, center: mapCenter});
+    // placeholder for center of map for home view
+    // let mapCenter =  { lat: 45, lng: -90} 
+    let mapCenter =  { lat: 44.8007, lng: -73.100} 
+    let map = new google.maps.Map(document.getElementById('map'), {zoom: 12, center: mapCenter});
     // code for adding center marker - don't need, but use for posting observation instance data
     // let marker = new google.maps.Marker({position: mapCenter, map: map});
 
-    map.addListener('click', function(e) {
-        console.log("clicked on map location for observation")
-        placeMarker(e.latLng, map);
+    addObs.addEventListener('click', function() { 
+        map.addListener('click', function(e) {
+            console.log("clicked on map location for observation")
+            placeMarker(e.latLng, map);
 
-      });
+        });
+    })
 }
 
 function placeMarker(latLng, map) {
-    var marker = new google.maps.Marker({
+    let marker = new google.maps.Marker({
       position: latLng,
       map: map
     });
@@ -43,12 +43,29 @@ function placeMarker(latLng, map) {
       form.style.display = "block";
       console.log("new observation form displayed")
 
+      submit.addEventListener('click', function () {
+        event.preventDefault();
 
+        let formData = {
+            name: document.getElementById("form_name").value,
+            description: document.getElementById("form_description").value,
+            category_id: document.getElementById("category").value,
+            latitude: markerCoordinates[0],
+            longitude: markerCoordinates[1]
+        }
+
+    console.log(formData)
+      form.style.display = "none";
+      console.log("form disappears")
+    
+    
+    })
 
 
     //   form.style.display = "none";
-    addMarkerToDatabase()
+    // addMarkerToDatabase()
   }
+
 
 
   function addMarkerToDatabase() {
@@ -65,28 +82,22 @@ function placeMarker(latLng, map) {
 
 
 // takes in argument of map and uses map.id in url for fetch
-function getObservationsOnMap(map) {
-    fetch(`${BACKEND_URL}/maps/1`)
-    .then(response => response.json())
-    .then(json => {
-        console.log(json)
-        console.log(json.data.attributes.observations)
-        let observations = json.data.attributes.observations
-        observations.forEach(renderObservation)
-    })
-}
-  function renderObservation() {
-      console.log("render observation function")
+// function getViolationsOnMap(map) {
+//     fetch(`${BACKEND_URL}/categories/1`)
+//     .then(response => response.json())
+//     .then(json => {
+//         console.log(json)
+//         console.log(json.data.attributes.observations)
+//         let observations = json.data.attributes.observations
+//         observations.forEach(renderObservation)
+//     })
+// }
+//   function renderObservation() {
+//       console.log("render observation function")
 
-  }
+//   }
         
-//         obs => {
-//           console.log(obs)
-//           let position = { lat: obs.latitude, lng: obs.longitude}
-//           let marker = new google.maps.Marker({position: position, map: map});
 
-//       })
-//   });
 
 //   fetch calls for various forms of json data _________________________________
 
@@ -98,6 +109,6 @@ function getObservationsOnMap(map) {
 //   .then(response => response.json())
 //   .then(parsedResponse => console.log(parsedResponse));
 
-// fetch(`${BACKEND_URL}/maps`)
+// fetch(`${BACKEND_URL}/categories`)
 //   .then(response => response.json())
 //   .then(parsedResponse => console.log(parsedResponse));
