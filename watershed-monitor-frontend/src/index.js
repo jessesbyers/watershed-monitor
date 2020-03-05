@@ -3,9 +3,8 @@ const BACKEND_URL = "http://localhost:3000"
 let addObs = document.getElementById("add_obs")
 let form = document.querySelector("header")
 let submit = document.getElementById("submit_observation")
-// let violations = document.getElementById("violations")
-// let bestPractices = document.getElementById("best_practices")
-// let waterData = document.getElementById("data")
+// let filter = document.getElementById("filter_data")
+// let about = document.getElementById("about")
 
 
 
@@ -96,6 +95,8 @@ function addMarkerToDatabase(formData) {
         });
 }
 
+// function called in addMarkerToDatabase
+// fetches all observation data and displays on map view
 function renderObservations() {
     console.log("placeholder for render observations function")
 }
