@@ -50,15 +50,17 @@ function placeMarker(latLng, map) {
       position: latLng,
       map: map
     });
+    marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-pushpin.png')
     console.log("marker placed")
 
     let markerCoordinates = [marker.getPosition().lat(), marker.getPosition().lng()]
-    showNewObservationForm(markerCoordinates, map)
+    showNewObservationForm(markerCoordinates, map, marker)
+
 }
 
 // showNewObservationForm is called in placeMarker function
 // displays form to collect observation data from user, created formData object, and hides form
-function showNewObservationForm(markerCoordinates, map) {
+function showNewObservationForm(markerCoordinates, map, marker) {
     document.querySelector("form").reset();
     form.style.display = "block";
     console.log("new observation form displayed")
@@ -77,6 +79,7 @@ function showNewObservationForm(markerCoordinates, map) {
 
         form.style.display = "none";
         console.log("form disappears")
+        marker.setMap(null)
         addMarkerToDatabase(formData, map)    
     })
 }
@@ -84,7 +87,6 @@ function showNewObservationForm(markerCoordinates, map) {
 // addMarkerToDatabase function called in ShowNewObservationForm function
 // sends a post request to backend to create new observation instance from formData and persist it in the database
 function addMarkerToDatabase(formData, map) {
-
     let configObj = {
         method: "POST",
         headers: {
@@ -131,6 +133,15 @@ function renderMarker(obs, map) {
         position: {lat: obs.attributes.latitude, lng: obs.attributes.longitude},
         map: map
       });
+      console.log(obs.attributes.category.name)
+    // logic to show markers of each category in a different color
+    if (obs.attributes.category.name === "Violations") {
+        obsMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/red.png')
+    } else if (obs.attributes.category.name === "Best Practices"){
+        obsMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green.png')
+    } else if (obs.attributes.category.name === "Water Quality Data"){
+        obsMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/yellow.png')
+    }
       attachMarkerInfoWindow(obs, obsMarker)
 }
 
