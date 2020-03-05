@@ -116,24 +116,26 @@ function fetchObservations(map) {
 }
 
 // function called in fetchObservations
-// renders a marker on the map for each observation and sets an event listener on each for info window
+// renders a marker on the map for each observation in the database and sets an event listener on each for info window
 function renderMarker(obs, map) {
-    // set marker using lat/long data
     console.log("render marker function")
     // console.log(obs)
-
     let obsMarker = new google.maps.Marker({
         position: {lat: obs.attributes.latitude, lng: obs.attributes.longitude},
         map: map
       });
       console.log(obsMarker)
-    // set event listener to click on marker to show info window with all details
+    // NEXT STEP: set event listener to click on marker to show info window with all details
 
 
 }
 
 
+// need to add delete or edit function
 
+// need to add filtering of markers
+
+// need to create about / how to navigate site
 
 
 // ------------ FETCH CALLS ---------------------------------
