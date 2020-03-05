@@ -1,4 +1,4 @@
 class ObservationSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :name, :category, :description, :latitude, :longitude, :map_id, :created_at, :map
+  attributes :name, :description, :latitude, :longitude, :category_id, :created_at, :category
 end

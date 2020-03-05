@@ -1,3 +1,3 @@
 class Observation < ApplicationRecord
-    belongs_to :map
+    belongs_to :category
 end
