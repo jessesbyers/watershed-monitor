@@ -126,12 +126,39 @@ function renderMarker(obs, map) {
         position: {lat: obs.attributes.latitude, lng: obs.attributes.longitude},
         map: map
       });
-      console.log(obsMarker)
+    //   console.log(obsMarker)
+      attachMarkerInfoWindow(obs, obsMarker)
 
     // NEXT STEP: set event listener to click on marker to show info window with all details
 
-
 }
+
+
+
+
+function attachMarkerInfoWindow(obs, obsMarker) {
+    console.log(obs)
+    console.log("inside attachMarkerInfoWindow function")
+
+    // let observationDetails = `***${obs.attributes.category.name}***${obs.attributes.name}: ${obs.attributes.description} (${obs.attributes.latitude}, ${obs.attributes.longitude})`
+
+    let observationDetails = `
+        <h6>${obs.attributes.name}</h6>
+        <p><em>${obs.attributes.category.name}</em></p>
+        <p>${obs.attributes.description}</p>
+        <p>${obs.attributes.latitude}, ${obs.attributes.longitude}</p>
+    `
+
+    let infowindow = new google.maps.InfoWindow({
+      content: observationDetails
+    });
+  
+    obsMarker.addListener('click', function() {
+      infowindow.open(obsMarker.get('map'), obsMarker);
+    });
+  }
+
+
 
 
 // need to add delete or edit function
