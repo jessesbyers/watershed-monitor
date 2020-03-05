@@ -69,19 +69,21 @@ function addMarkerToDatabase(formData) {
     console.log(formData)
 
     let configObj = {
+        method: "POST",
         headers: {
-            "method": "POST",
             "Content-Type": "application/json",
             "Accept": "application/json"
         },
         body: JSON.stringify(formData)
       };
 
-      fetch(`${BACKEND_URL}/observations`, configObj)
+      return fetch(`${BACKEND_URL}/observations`, configObj)
         .then(function(response) {
             return response.json();
         })
         .then(function(object) {
+            console.log(formData)
+
             console.log(object);
         })
         .catch(function(error) {

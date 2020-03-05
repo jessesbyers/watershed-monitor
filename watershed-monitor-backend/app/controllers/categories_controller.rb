@@ -6,7 +6,7 @@ class CategoriesController < ApplicationController
     end
 
     def show
-        map = Map.find(params[:id])
-        render json: MapSerializer.new(map)
+        category = Category.find(params[:id])
+        render json: CategorySerializer.new(category)
     end
 end

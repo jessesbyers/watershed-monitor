@@ -5,9 +5,7 @@ class ObservationsController < ApplicationController
     end
 
     def create 
-        binding.pry
         observation = Observation.new(observation_params)
- 
         observation.save
     end
 
@@ -24,8 +22,8 @@ class ObservationsController < ApplicationController
 
     private
 
-    # def observation_params
-    #     params.require().permit()
-    # end
+    def observation_params
+        params.permit(:name, :description, :category_id, :latitude, :longitude)
+    end
 
 end
