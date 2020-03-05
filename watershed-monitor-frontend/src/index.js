@@ -24,10 +24,11 @@ function initMap() {
         map.addListener('click', function(e) {
             console.log("clicked on map location for observation")
             placeMarker(e.latLng, map);
-
         });
     })
 }
+
+// FIGURE OUT HOW TO REMOVE LISTENER FOR ADDING MARKERS AFTER ONE IS ADDED!!!
 
 function placeMarker(latLng, map) {
     let marker = new google.maps.Marker({
@@ -35,15 +36,16 @@ function placeMarker(latLng, map) {
       map: map
     });
     console.log("marker placed")
+
     let markerCoordinates = [marker.getPosition().lat(), marker.getPosition().lng()]
     showNewObservationForm(markerCoordinates)
-  }
+}
 
-  function showNewObservationForm(markerCoordinates) {
-      form.style.display = "block";
-      console.log("new observation form displayed")
+function showNewObservationForm(markerCoordinates) {
+    form.style.display = "block";
+    console.log("new observation form displayed")
 
-      submit.addEventListener('click', function () {
+    submit.addEventListener('click', function () {
         event.preventDefault();
 
         let formData = {
@@ -54,24 +56,24 @@ function placeMarker(latLng, map) {
             longitude: markerCoordinates[1]
         }
 
-    console.log(formData)
-      form.style.display = "none";
-      console.log("form disappears")
-    
-    
+        form.style.display = "none";
+        console.log("form disappears")
+        addMarkerToDatabase(formData)    
     })
+}
 
+function addMarkerToDatabase(formData) {
+    console.log(formData)
 
-    //   form.style.display = "none";
-    // addMarkerToDatabase()
-  }
+    // NEXT STEPS: WRITE CONFIG OBJECT AND FETCH CALL TO ADD OBSERVATION TO DATABASE, 
+    // THEN RE-RENDER MAP
 
+    let configObj = {
 
+    }
 
-  function addMarkerToDatabase() {
-      console.log("add marker to database")
-
-  }
+    console.log("add marker to database")
+}
 
 
 
