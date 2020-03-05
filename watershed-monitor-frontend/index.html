@@ -19,14 +19,11 @@
                 <li class='nav-item'><button id="add_obs">Add Data</button></li>
                 <li class='nav-item'><button id="filter_data">Filter Data</button></li>
                 <li class='nav-item'><button id="about">About</button></li>
-
-
-
                 </ul>
             </div>
     </nav>
 
-    <header class="htop">
+    <header class="htop" id="form">
       <form>
         <label for="name">Location Name</label>
         <input id="form_name" type="text" name="name" value=""/>
@@ -45,11 +42,19 @@
       </form>  
     </header>
 
-    <!-- <div class="container content" role="main">
-    </div> -->
+    <header class="htop" id="filter">
+      <input type="checkbox" id="cat_1" name="cat_1" value="Violations">
+      <label for="cat_1">Violations</label><br>
 
+      <input type="checkbox" id="cat_2" name="cat_2" value="Best Practices">
+      <label for="cat_2">Best Practices</label><br>
+
+      <input type="checkbox" id="cat_3" name="cat_3" value="Water Quality Data">
+      <label for="cat_3">Water Quality Data</label><br>
+  </header>
 
     <div class = "map" id="map">
+      <!-- map rendered here -->
     </div>
 
     <footer class='text-xs-left footer bg-inverse text-white navbar-fixed-bottom'>2020 - Jesse Byers - <a href="https://github.com/jessesbyers/watershed-monitor">Visit Project on GitHub</a></footer>

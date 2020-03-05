@@ -1,7 +1,10 @@
 // declaring global variables to be used throughout
 const BACKEND_URL = "http://localhost:3000"
 let addObs = document.getElementById("add_obs")
-let form = document.querySelector("header")
+let filterData = document.getElementById("filter_data")
+let form = document.querySelector("header#form")
+let filter = document.querySelector("header#filter")
+
 let submit = document.getElementById("submit_observation")
 let map
 // let filter = document.getElementById("filter_data")
@@ -14,6 +17,7 @@ let map
 // Initiates rendering of the map on the DOM, and sets event listener for adding maps
 function initMap(map) {
     form.style.display = "none";
+    filter.style.display = "none";
     // placeholder for center of map for home view
     // let mapCenter =  { lat: 45, lng: -90} 
     let mapCenter =  { lat: 44.8007, lng: -73.100} 
@@ -24,7 +28,6 @@ function initMap(map) {
 
     // event listener so user can click "Add" button when ready to create a new observation
     addObs.addEventListener('click', function() { 
-        // console.log(map)
         // event listener to place marker on map with click on location
         let addMarkerListener = map.addListener('click', function(e) {
             console.log("clicked on map location for observation")
@@ -34,6 +37,15 @@ function initMap(map) {
             console.log("addMarkerListener removed")
         });
     })
+
+    filter_data.addEventListener('click', function() { 
+        filter.style.display = "block";
+        console.log("testing filter")
+
+
+    })
+
+
     fetchObservations(map)
     renderMarker(obs, map)
 }
