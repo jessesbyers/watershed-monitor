@@ -21,14 +21,14 @@ function initMap() {
     // let marker = new google.maps.Marker({position: mapCenter, map: map});
 
     addObs.addEventListener('click', function() { 
-        map.addListener('click', function(e) {
+        let addMarkerListener = map.addListener('click', function(e) {
             console.log("clicked on map location for observation")
             placeMarker(e.latLng, map);
+            // remove listener so only one marker can be added
+            google.maps.event.removeListener(addMarkerListener)
         });
     })
 }
-
-// FIGURE OUT HOW TO REMOVE LISTENER FOR ADDING MARKERS AFTER ONE IS ADDED!!!
 
 function placeMarker(latLng, map) {
     let marker = new google.maps.Marker({
@@ -56,6 +56,8 @@ function showNewObservationForm(markerCoordinates) {
             latitude: markerCoordinates[0],
             longitude: markerCoordinates[1]
         }
+
+
 
         form.style.display = "none";
         console.log("form disappears")
