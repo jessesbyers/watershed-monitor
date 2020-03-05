@@ -150,9 +150,8 @@ function renderMarker(obs, map) {
 function attachMarkerInfoWindow(obs, obsMarker) {
     let observationDetails = `
         <h6>${obs.attributes.name}</h6>
-        <p><em>${obs.attributes.category.name}</em></p>
-        <p>${obs.attributes.description}</p>
         <p>${obs.attributes.latitude}, ${obs.attributes.longitude}</p>
+        <p>${obs.attributes.description}</p>
     `
     let infowindow = new google.maps.InfoWindow({
       content: observationDetails
