@@ -43,8 +43,8 @@ html, body {
 
 .footer {
     height: auto;
-    padding: 20px;
-    margin-top: 20px;
+    padding: 5px;
+    margin-top: 5px;
 }
 
 .card, .card-body {
@@ -57,7 +57,7 @@ h1.float-xs-right {
 }
 
 #map {
-    height: 100%;  
+    height: 94%;  
     /* width: 100%;   */
     background-color: grey;
    }
