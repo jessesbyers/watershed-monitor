@@ -54,23 +54,26 @@ function initMap(map) {
 
         filterSubmit.addEventListener('click', function(){
             event.preventDefault();
-    
-            if (document.getElementById('cat_1').checked) {
-                console.log(markersArray)
-                // iterate through markersArray and if .icon equals color of category, keep .visible (true)
-                // if not match, change .visible to false
+            markersArray.map(marker => {
+                marker.setVisible(false)
+                console.log(marker)
+                if (document.getElementById('cat_1').checked && marker.icon === "http://maps.google.com/mapfiles/ms/icons/red.png") {
+                    marker.setVisible(true)
+                    console.log("filter violations")
+                    console.log(marker)
 
-                // fetchCategory(map, violationsUrl)
-                console.log("filter violations")
-                console.log(map)
+                }
+                if (document.getElementById('cat_2').checked && marker.icon === "http://maps.google.com/mapfiles/ms/icons/green.png") {
+                    marker.setVisible(true)
+                    console.log("filter best practices")
 
-            }
-            if (document.getElementById('cat_2').checked) {
-                // fetchCategory(map, bestPracticesUrl)
-            }
-            if (document.getElementById('cat_3').checked) {
-                // fetchCategory(map, WaterQualityUrl)
-            }
+
+                }
+                if (document.getElementById('cat_3').checked && marker.icon === "http://maps.google.com/mapfiles/ms/icons/yellow.png") {
+                    marker.setVisible(true)
+                    console.log("filter water quality data")
+                }
+            })
             filter.style.display = "none";
 
         })
