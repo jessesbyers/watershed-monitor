@@ -1,13 +1,20 @@
 // declaring global variables to be used throughout
 const BACKEND_URL = "http://localhost:3000"
+let url = "observations"
+let violationsUrl = "categories/1"
+let bestPracticesUrl = "categories/2"
+let waterQualityUrl = "categories/3"
+
+
 let addObs = document.getElementById("add_obs")
 let filterData = document.getElementById("filter_data")
 let form = document.querySelector("header#form")
 let filter = document.querySelector("header#filter")
 
 let submit = document.getElementById("submit_observation")
+let filterSubmit = document.getElementById("filter_submit")
 let map
-// let filter = document.getElementById("filter_data")
+// let markers = map.markers
 // let about = document.getElementById("about")
 
 
@@ -38,15 +45,32 @@ function initMap(map) {
         });
     })
 
-    filter_data.addEventListener('click', function() { 
+
+    filterData.addEventListener('click', function() { 
+        console.log("filter checkboxes appear")
+
         filter.style.display = "block";
-        console.log("testing filter")
+        // let markers = map.markers
+        // console.log(markers)
 
+        filterSubmit.addEventListener('click', function(){
+            event.preventDefault();
+    
+            if (document.getElementById('cat_1').checked) {
+                fetchCategory(map, violationsUrl)
+            }
+            if (document.getElementById('cat_2').checked) {
+                fetchCategory(map, bestPracticesUrl)
+            }
+            if (document.getElementById('cat_3').checked) {
+                fetchCategory(map, WaterQualityUrl)
+            }
+            filter.style.display = "none";
 
+        })
     })
 
-
-    fetchObservations(map)
+    fetchObservations(map, url)
     renderMarker(obs, map)
 }
 
@@ -123,11 +147,9 @@ function addMarkerToDatabase(formData, map) {
 }
 
 // function called in addMarkerToDatabase
-// fetches all observation data form database
-function fetchObservations(map) {
-    console.log("fetch observations function")
-
-    fetch(`${BACKEND_URL}/observations`)
+// fetches all observation data from database
+function fetchObservations(map, url) {
+    fetch(`${BACKEND_URL}/${url}`)
         .then(response => response.json())
         .then(json => {
             let observations = json.data
@@ -174,6 +196,65 @@ function attachMarkerInfoWindow(obs, obsMarker) {
     });
     console.log("InfoWindows added with event listener")
 }
+
+
+
+// *************functions for filtered data
+// function called in filter event listener
+// fetches all observation data from sigle category from database
+function fetchCategory(map, url) {
+    console.log("fetch category function")
+    fetch(`${BACKEND_URL}/${url}`)
+        .then(response => response.json())
+        .then(json => {
+            let observations = json.data.attributes.observations
+            console.log(observations)
+            observations.forEach(obs => {
+                console.log(obs)
+                renderFilteredMarker(obs, map)
+            })
+        })
+}
+
+function renderFilteredMarker(obs, map) {
+    console.log("render marker function")
+    console.log(map)
+
+    let obsMarker = new google.maps.Marker({
+        position: {lat: obs.latitude, lng: obs.longitude},
+        map: map
+      });
+      console.log(obs.name)
+    // logic to show markers of each category in a different color
+    if (obs.category_id === 1) {
+        obsMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/red.png')
+    } else if (obs.category_id === 2){
+        obsMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green.png')
+    } else if (obs.category_id === 3){
+        obsMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/yellow.png')
+    }
+      attachFilteredMarkerInfoWindow(obs, obsMarker)
+}
+
+function attachFilteredMarkerInfoWindow(obs, obsMarker) {
+    let observationDetails = `
+        <h6>${obs.name}</h6>
+        <p>${obs.latitude}, ${obs.longitude}</p>
+        <p>${obs.description}</p>
+    `
+    let infowindow = new google.maps.InfoWindow({
+      content: observationDetails
+    });
+  
+    obsMarker.addListener('click', function() {
+      infowindow.open(obsMarker.get('map'), obsMarker);
+    });
+    console.log("InfoWindows added with event listener")
+}
+
+
+
+
 
 
 // need to add delete or edit function
