@@ -13,10 +13,12 @@ let submit = document.getElementById("submit_observation")
 function initMap() {
     form.style.display = "none";
     // placeholder for center of map for home view
-    let mapCenter =  { lat: 45, lng: -90} 
-    // let mapCenter =  { lat: 44.8007, lng: -73.100} 
+    // let mapCenter =  { lat: 45, lng: -90} 
+    let mapCenter =  { lat: 44.8007, lng: -73.100} 
     // set zoom 12 for local view, zoom 3 for North America
-    let map = new google.maps.Map(document.getElementById('map'), {zoom: 3, center: mapCenter});
+    // let map = new google.maps.Map(document.getElementById('map'), {zoom: 3, center: mapCenter});
+    let map = new google.maps.Map(document.getElementById('map'), {zoom: 12, center: mapCenter});
+
 
     // event listener so user can click "Add" button when ready to create a new observation
     addObs.addEventListener('click', function() { 
@@ -87,7 +89,7 @@ function addMarkerToDatabase(formData) {
         })
         .then(function() {
             console.log("add marker to database")
-            renderObservations()
+            fetchObservations()
         })
         .catch(function(error) {
             alert("ERROR! Please Try Again");
@@ -96,9 +98,27 @@ function addMarkerToDatabase(formData) {
 }
 
 // function called in addMarkerToDatabase
-// fetches all observation data and displays on map view
-function renderObservations() {
-    console.log("placeholder for render observations function")
+// fetches all observation data form database
+function fetchObservations() {
+    console.log("placeholder for fetch observations function")
+
+    fetch(`${BACKEND_URL}/observations`)
+        .then(response => response.json())
+        .then(json => {
+            let observations = json.data
+            // console.log(observations)
+            observations.forEach(obs => {
+                // console.log(obs.attributes.latitude)
+                renderMarker(obs)
+            })
+        })
+}
+
+function renderMarker(obs) {
+                    // set marker using lat/long data
+                // set event listener to click on marker to show info window with all details
+    console.log("render marker function")
+    console.log(obs)
 }
 
 
