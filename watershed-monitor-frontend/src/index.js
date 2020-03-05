@@ -19,7 +19,9 @@ function initMap(map) {
     // set zoom 12 for local view, zoom 3 for North America
     // let map = new google.maps.Map(document.getElementById('map'), {zoom: 3, center: mapCenter});
     map = new google.maps.Map(document.getElementById('map'), {zoom: 12, center: mapCenter});
-
+    // after map is loaded, fetch and render markers for all observations already in database
+    fetchObservations(map)
+    renderMarker(obs, map)
 
     // event listener so user can click "Add" button when ready to create a new observation
     addObs.addEventListener('click', function() { 
@@ -125,6 +127,7 @@ function renderMarker(obs, map) {
         map: map
       });
       console.log(obsMarker)
+
     // NEXT STEP: set event listener to click on marker to show info window with all details
 
 
