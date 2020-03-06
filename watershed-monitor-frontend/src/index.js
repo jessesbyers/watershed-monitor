@@ -1,4 +1,12 @@
-                    // declaring global variables to be used throughout
+// PROBLEM:
+    // multiple entries are being created everytime an object is added.
+    // might have to do with initMap being called in the script multiple times?
+    // need to go through code and make sure there is no redundancy (DOM content loaded?)
+
+
+
+
+// declaring global variables to be used throughout
                     const BACKEND_URL = "http://localhost:3000"
 
                     let addObs = document.getElementById("add_obs")
@@ -29,7 +37,7 @@ function initMap(map) {
 
     // event listener so user can click "Add" button when ready to create a new observation
     addObs.addEventListener('click', function() { 
-        // alert("Click on a location on the map to add a new observation.");
+        alert("Click on a location on the map to add a new observation.");
 
         // event listener to place marker on map with click on location
         let addMarkerListener = map.addListener('click', function(e) {
@@ -38,97 +46,96 @@ function initMap(map) {
             google.maps.event.removeListener(addMarkerListener)
         });
     })
-    resetMarkers()
 
-    // fetchObservations(map)
-    // renderMarker(obs, map)
+    fetchObservations(map)
+    renderMarker(obs, map)
 }
 
 
-                    // event listener so user can click "Delete" button when ready to delete an existing observation
-                    deleteObs.addEventListener('click', function() { 
-                        if (deleteObs.innerText === "Delete Data") {
-                            alert("Double Click a marker on the map to delete the observation.");
-                            deleteObs.innerText = "Reset"
-                            // event listener on each marker to delete marker on map with mousedown on location
-                            markersArray.forEach(marker => {
+                    // // event listener so user can click "Delete" button when ready to delete an existing observation
+                    // deleteObs.addEventListener('click', function() { 
+                    //     if (deleteObs.innerText === "Delete Data") {
+                    //         alert("Double Click a marker on the map to delete the observation.");
+                    //         deleteObs.innerText = "Reset"
+                    //         // event listener on each marker to delete marker on map with mousedown on location
+                    //         markersArray.forEach(marker => {
 
-                                let deleteMarkerListener = marker.addListener('dblclick', function(e) {
-                                    if (confirm("Do you want to delete this observation?") === true) {
-                                        deleteMarker(marker)
-                                    } else {
-                                        console.log("delete cancelled")
-                                    }
-                                return deleteMarkerListener
-                                })
-                            })
-                        } else if (deleteObs.innerText === "Reset") {
-                            markersArray.map(marker => {
-                                    google.maps.event.clearListeners(marker, 'dblclick')
-                                    console.log("reset!")
-                                    deleteObs.innerText = "Delete Data"
-                            })
-                        }
-                    })
+                    //             let deleteMarkerListener = marker.addListener('dblclick', function(e) {
+                    //                 if (confirm("Do you want to delete this observation?") === true) {
+                    //                     deleteMarker(marker)
+                    //                 } else {
+                    //                     console.log("delete cancelled")
+                    //                 }
+                    //             return deleteMarkerListener
+                    //             })
+                    //         })
+                    //     } else if (deleteObs.innerText === "Reset") {
+                    //         markersArray.map(marker => {
+                    //                 google.maps.event.clearListeners(marker, 'dblclick')
+                    //                 console.log("reset!")
+                    //                 deleteObs.innerText = "Delete Data"
+                    //         })
+                    //     }
+                    // })
 
-                    function deleteMarker(marker) {
-                        console.log("deleteMarker function")
-                        // console.log(marker)
-                        markerLocation = [marker.getPosition().lat(), marker.getPosition().lng()]
-                        // console.log(marker.getPosition().lat())
-                        removeObsFromDatabase(marker)
-                        // need to problem-solve how to remove listener on all markers after one is deleted
-                    }
+                    // function deleteMarker(marker) {
+                    //     console.log("deleteMarker function")
+                    //     // console.log(marker)
+                    //     markerLocation = [marker.getPosition().lat(), marker.getPosition().lng()]
+                    //     // console.log(marker.getPosition().lat())
+                    //     removeObsFromDatabase(marker)
+                    //     // need to problem-solve how to remove listener on all markers after one is deleted
+                    // }
 
-                    function removeObsFromDatabase(marker) {
-                        console.log("remove from db function")
-                        let id = parseInt(marker.label)
-                        console.log(id)
+                    // function removeObsFromDatabase(marker) {
+                    //     console.log("remove from db function")
+                    //     let id = parseInt(marker.label)
+                    //     console.log(id)
 
-                        let configObj = {
-                            method: "DELETE",
-                            headers: 
-                            {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json"
-                            },
-                        };
+                    //     let configObj = {
+                    //         method: "DELETE",
+                    //         headers: 
+                    //         {
+                    //         "Content-Type": "application/json",
+                    //         "Accept": "application/json"
+                    //         },
+                    //     };
 
-                        fetch(`${BACKEND_URL}/observations/${id}`, configObj) 
-                        .then(function(response) {
-                            // response.json();
-                        })
-                        .then(function(json) {
-                            marker.setMap(null)
-                        })
-                        .then (alert(`Observation ${id} Successfully Deleted`))
+                    //     fetch(`${BACKEND_URL}/observations/${id}`, configObj) 
+                    //     .then(function(response) {
+                    //         // response.json();
+                    //     })
+                    //     .then(function(json) {
+                    //         marker.setMap(null)
+                    //     })
+                    //     .then (alert(`Observation ${id} Successfully Deleted`))
 
-                    }
+                    // }
+
+// ************************ need to fix multiple entries of each new data point added!!!! ***************
 
 
+// // Event listener for filtering data by category
+// filterData.addEventListener('click', function() { 
+//     filter.style.display = "block";
 
-
-// Event listener for filtering data by category
-filterData.addEventListener('click', function() { 
-    filter.style.display = "block";
-
-    filterSubmit.addEventListener('click', function(){
-        event.preventDefault();
-        markersArray.map(marker => {
-            marker.setVisible(false)
-            if (document.getElementById('cat_1').checked && marker.icon === "http://maps.google.com/mapfiles/ms/icons/red.png") {
-                marker.setVisible(true)
-            }
-            if (document.getElementById('cat_2').checked && marker.icon === "http://maps.google.com/mapfiles/ms/icons/green.png") {
-                marker.setVisible(true)
-            }
-            if (document.getElementById('cat_3').checked && marker.icon === "http://maps.google.com/mapfiles/ms/icons/yellow.png") {
-                marker.setVisible(true)
-            }
-        })
-        filter.style.display = "none";
-    })
-})
+//     filterSubmit.addEventListener('click', function(){
+//         event.preventDefault();
+//         markersArray.map(marker => {
+//             marker.setVisible(false)
+//             if (document.getElementById('cat_1').checked && marker.icon === "http://maps.google.com/mapfiles/ms/icons/red.png") {
+//                 marker.setVisible(true)
+//             }
+//             if (document.getElementById('cat_2').checked && marker.icon === "http://maps.google.com/mapfiles/ms/icons/green.png") {
+//                 marker.setVisible(true)
+//             }
+//             if (document.getElementById('cat_3').checked && marker.icon === "http://maps.google.com/mapfiles/ms/icons/yellow.png") {
+//                 marker.setVisible(true)
+//             }
+//         })
+//         filter.style.display = "none";
+//     })
+// })
 
 
 
@@ -137,6 +144,7 @@ filterData.addEventListener('click', function() {
                     // placeMarker function is called in event listener for adding observations
                     // creates marker object instance, sets coordinates of marker
                     function placeMarker(latLng, map) {
+                        console.log(latLng)
                         let marker = new google.maps.Marker({
                         position: latLng,
                         map: map
@@ -167,6 +175,7 @@ filterData.addEventListener('click', function() {
 
                             form.style.display = "none";
                             marker.setMap(null)
+                            
                             addMarkerToDatabase(formData, map)    
                         })
                     }
@@ -200,6 +209,7 @@ filterData.addEventListener('click', function() {
 // function called in addMarkerToDatabase
 // fetches all observation data from database
 function fetchObservations(map) {
+    resetMarkers()
     fetch(`${BACKEND_URL}/observations`)
         .then(response => response.json())
         .then(json => {
@@ -213,6 +223,8 @@ function fetchObservations(map) {
 let resetMarkers = function () {
     markersArray.forEach(marker => marker.setMap(null))
     markersArray.length = 0
+    console.log("markers reset")
+    console.log(markersArray)
 }
 
 
