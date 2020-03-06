@@ -20,6 +20,11 @@ class ObservationsController < ApplicationController
         render json: ObservationSerializer.new(observation)
     end
 
+    def destroy 
+        observation = Observation.find(params[:id])
+        observation.destroy
+    end
+
     private
 
     def observation_params

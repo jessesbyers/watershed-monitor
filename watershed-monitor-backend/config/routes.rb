@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
 
 
- resources :observations, only: [:new, :create, :index, :show]
+ resources :observations, only: [:new, :create, :index, :show, :destroy]
   #  get '/observations', to: 'observations#index'
   # get '/observations/:id', to: 'observations#show'
   

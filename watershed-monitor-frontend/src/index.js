@@ -74,8 +74,9 @@ function initMap(map) {
 
                     function removeObsFromDatabase(marker) {
                         console.log("remove from db function")
-                        console.log(marker.label)
                         let id = parseInt(marker.label)
+                        console.log(id)
+
 
                         let configObj = {
                             method: "DELETE",
@@ -91,9 +92,9 @@ function initMap(map) {
                             // response.json();
                         })
                         .then(function(json) {
-                            console.log(json) 
                             marker.setMap(null)
-                       
+                            // console.log(json)
+                            alert(`Observation ${id} Successfully Deleted`)
                         })
                     }
 
