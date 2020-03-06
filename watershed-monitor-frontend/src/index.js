@@ -38,8 +38,10 @@ function initMap(map) {
             google.maps.event.removeListener(addMarkerListener)
         });
     })
-    fetchObservations(map)
-    renderMarker(obs, map)
+    resetMarkers()
+
+    // fetchObservations(map)
+    // renderMarker(obs, map)
 }
 
 
@@ -184,7 +186,7 @@ filterData.addEventListener('click', function() {
 
                         return fetch(`${BACKEND_URL}/observations`, configObj)
                             .then(function(response) {
-                                response.json();
+                                response.json()
                             })
                             .then(function() {
                                 fetchObservations(map)
@@ -198,7 +200,6 @@ filterData.addEventListener('click', function() {
 // function called in addMarkerToDatabase
 // fetches all observation data from database
 function fetchObservations(map) {
-    
     fetch(`${BACKEND_URL}/observations`)
         .then(response => response.json())
         .then(json => {
@@ -211,30 +212,32 @@ function fetchObservations(map) {
 
 let resetMarkers = function () {
     markersArray.forEach(marker => marker.setMap(null))
-    markersArray = []
+    markersArray.length = 0
 }
 
 
 // function called in fetchObservations
 // renders a marker on the map for each observation in the database and sets an event listener on each for info window
 function renderMarker(obs, map) {
-    // console.log(obs.id)
-    // resetMarkers()
+    let iconColor = function() {
+        if (obs.attributes.category.name === "Violations") {
+            return 'http://maps.google.com/mapfiles/ms/icons/red.png'
+        } else if (obs.attributes.category.name === "Best Practices"){
+            return 'http://maps.google.com/mapfiles/ms/icons/green.png'
+        } else if (obs.attributes.category.name === "Water Quality Data"){
+            return 'http://maps.google.com/mapfiles/ms/icons/yellow.png'
+        }
+    }
+
+    console.log(markersArray.length)
     let obsMarker = new google.maps.Marker({
         position: {lat: obs.attributes.latitude, lng: obs.attributes.longitude},
         map: map,
-        label: obs.id
+        label: obs.id, 
+        icon: iconColor()
       });
-    //   console.log(obsMarker)
-    // logic to display markers of each category in a different color
-    if (obs.attributes.category.name === "Violations") {
-        obsMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/red.png')
-    } else if (obs.attributes.category.name === "Best Practices"){
-        obsMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green.png')
-    } else if (obs.attributes.category.name === "Water Quality Data"){
-        obsMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/yellow.png')
-    }
 
+    console.log(obsMarker)
     markersArray.push(obsMarker)
     attachMarkerInfoWindow(obs, obsMarker)
 }
