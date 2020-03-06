@@ -68,14 +68,38 @@ function initMap(map) {
                         markerLocation = [marker.getPosition().lat(), marker.getPosition().lng()]
                         // console.log(marker.getPosition().lat())
                         removeObsFromDatabase(marker)
-                        markersArray.forEach(m => deleteMarkerListener.remove(m))
-
-
+                        // need to problem-solve how to remove listener on all markers after one is deleted
+                        // markersArray.forEach(m => deleteMarkerListener.remove(m))
                     }
 
                     function removeObsFromDatabase(marker) {
                         console.log("remove from db function")
+                        console.log(marker.label)
+                        let id = parseInt(marker.label)
+
+                        let configObj = {
+                            method: "DELETE",
+                            headers: 
+                            {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json"
+                            },
+                        };
+
+                        fetch(`${BACKEND_URL}/observations/${id}`, configObj) 
+                        .then(function(response) {
+                            // response.json();
+                        })
+                        .then(function(json) {
+                            console.log(json) 
+                            marker.setMap(null)
+                       
+                        })
                     }
+
+
+                    
+
 
 
 
@@ -185,10 +209,13 @@ function fetchObservations(map) {
 // function called in fetchObservations
 // renders a marker on the map for each observation in the database and sets an event listener on each for info window
 function renderMarker(obs, map) {
+    // console.log(obs.id)
     let obsMarker = new google.maps.Marker({
         position: {lat: obs.attributes.latitude, lng: obs.attributes.longitude},
-        map: map
+        map: map,
+        label: obs.id
       });
+    //   console.log(obsMarker)
     // logic to display markers of each category in a different color
     if (obs.attributes.category.name === "Violations") {
         obsMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/red.png')
