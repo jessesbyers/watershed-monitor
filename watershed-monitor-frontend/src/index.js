@@ -2,6 +2,7 @@
 const BACKEND_URL = "http://localhost:3000"
 
 let addObs = document.getElementById("add_obs")
+let deleteObs = document.getElementById("delete_obs")
 let filterData = document.getElementById("filter_data")
 let form = document.querySelector("header#form")
 let filter = document.querySelector("header#filter")
@@ -38,8 +39,47 @@ function initMap(map) {
         });
     })
     fetchObservations(map)
-    renderMarker(obs, map)
+    // renderMarker(obs, map)
 }
+
+                    // event listener so user can click "Delete" button when ready to delete an existing observation
+                    deleteObs.addEventListener('click', function() { 
+                        alert("Click and hold down a marker on the map to delete the observation.");
+                    //     console.log("delete clicked")
+                        // console.log(markersArray)
+                        // event listener on each marker to delete marker on map with mousedown on location
+                        markersArray.forEach(marker => {
+
+                            let deleteMarkerListener = marker.addListener('mousedown', function(e) {
+                                confirm("Do you want to delete this observation?")
+                                console.log(marker)
+                                console.log("mousedown on marker")
+                                deleteMarker(marker, deleteMarkerListener)
+
+                                // remove listener so only one marker can be deleted at a time
+                                // deleteMarkerListener.remove()
+                            })
+                        });
+                    })
+
+                    function deleteMarker(marker, deleteMarkerListener) {
+                        console.log("deleteMarker function")
+                        // console.log(marker)
+                        markerLocation = [marker.getPosition().lat(), marker.getPosition().lng()]
+                        // console.log(marker.getPosition().lat())
+                        removeObsFromDatabase(marker)
+                        markersArray.forEach(m => deleteMarkerListener.remove(m))
+
+
+                    }
+
+                    function removeObsFromDatabase(marker) {
+                        console.log("remove from db function")
+                    }
+
+
+
+
 
 // Event listener for filtering data by category
 filterData.addEventListener('click', function() { 
