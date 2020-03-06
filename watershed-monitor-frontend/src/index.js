@@ -2,6 +2,7 @@
     // multiple entries are being created everytime an object is added.
     // might have to do with initMap being called in the script multiple times?
     // need to go through code and make sure there is no redundancy (DOM content loaded?)
+    // make it so you have to press button to add data to map (show data / filter data button)
 
 
 
@@ -19,7 +20,7 @@
                     let filterSubmit = document.getElementById("filter_submit")
                     let map
                     let markersArray = []
-                    // let about = document.getElementById("about")
+                    let view = document.getElementById("view")
 
 
 // initMap function is called in script tag on index.html as page is loaded: 
@@ -27,6 +28,8 @@
 function initMap(map) {
     form.style.display = "none";
     filter.style.display = "none";
+    filterData.style.display = "none"
+
     // placeholder for center of map for home view
     // let mapCenter =  { lat: 45, lng: -90} 
     let mapCenter =  { lat: 44.8007, lng: -73.100} 
@@ -47,8 +50,13 @@ function initMap(map) {
         });
     })
 
-    fetchObservations(map)
-    renderMarker(obs, map)
+    view.addEventListener('click', function() { 
+        view.style.display = "none"
+        filterData.style.display = "block"
+
+        fetchObservations(map)
+        renderMarker(obs, map)
+    })
 }
 
 
@@ -144,7 +152,6 @@ function initMap(map) {
                     // placeMarker function is called in event listener for adding observations
                     // creates marker object instance, sets coordinates of marker
                     function placeMarker(latLng, map) {
-                        console.log(latLng)
                         let marker = new google.maps.Marker({
                         position: latLng,
                         map: map
@@ -198,6 +205,7 @@ function initMap(map) {
                                 response.json()
                             })
                             .then(function() {
+                                console.log("new marker added to database")
                                 fetchObservations(map)
                             })
                             .catch(function(error) {
@@ -224,7 +232,6 @@ let resetMarkers = function () {
     markersArray.forEach(marker => marker.setMap(null))
     markersArray.length = 0
     console.log("markers reset")
-    console.log(markersArray)
 }
 
 
