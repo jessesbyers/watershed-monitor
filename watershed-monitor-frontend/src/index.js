@@ -27,6 +27,7 @@
 // initMap function is called in script tag on index.html as page is loaded: 
 // Initiates rendering of the map on the DOM, and sets event listener for adding maps
 function initMap(map) {
+    console.log("start initMap")
     form.style.display = "none";
     filter.style.display = "none";
     filterData.style.display = "none"
@@ -37,12 +38,11 @@ function initMap(map) {
     // set zoom 12 for local view, zoom 3 for North America
     // let map = new google.maps.Map(document.getElementById('map'), {zoom: 3, center: mapCenter});
     map = new google.maps.Map(document.getElementById('map'), {zoom: 12, center: mapCenter});
-    // after map is loaded, fetch and render markers for all observations already in database
 
     // event listener so user can click "Add" button when ready to create a new observation
     addObs.addEventListener('click', function() { 
+        console.log("inside add obs event listener")
         alert("Click on a location on the map to add a new observation.");
-
         // event listener to place marker on map with click on location
         let addMarkerListener = map.addListener('click', function(e) {
             placeMarker(e.latLng, map);
@@ -58,6 +58,8 @@ function initMap(map) {
         fetchObservations(map)
         renderMarker(obs, map)
     })
+
+    // console.log("initMap function completed")
 }
 
 
@@ -153,6 +155,7 @@ function initMap(map) {
                     // placeMarker function is called in event listener for adding observations
                     // creates marker object instance, sets coordinates of marker
                     function placeMarker(latLng, map) {
+                        console.log("start placeMarker")
                         let marker = new google.maps.Marker({
                         position: latLng,
                         map: map
@@ -166,6 +169,8 @@ function initMap(map) {
                     // showNewObservationForm is called in placeMarker function
                     // displays form to collect observation data from user, created formData object, and hides form
                     function showNewObservationForm(markerCoordinates, map, marker) {
+                        console.log("start showObservationForm")
+
                         document.querySelector("form").reset();
                         form.style.display = "block";
 
@@ -192,6 +197,8 @@ function initMap(map) {
                     // addMarkerToDatabase function called in ShowNewObservationForm function
                     // sends a post request to backend to create new observation instance from formData and persist it in the database
                     function addMarkerToDatabase(formData, map) {
+                        console.log("start addMarkertoDatabase")
+
                         let configObj = {
                             method: "POST",
                             headers: {
@@ -218,28 +225,39 @@ function initMap(map) {
 // function called in addMarkerToDatabase
 // fetches all observation data from database
 function fetchObservations(map) {
+    console.log("start fetchObservations")
+
     resetMarkers()
     fetch(`${BACKEND_URL}/observations`)
         .then(response => response.json())
         .then(json => {
             let observations = json.data
+            // console.log(observations)
             observations.forEach(obs => {
                 renderMarker(obs, map)
             })
         })
 }
 
-let resetMarkers = function () {
+function resetMarkers() {
+    console.log("start resetMarkers")
+
     markersArray.forEach(marker => marker.setMap(null))
-    markersArray.length = 0
-    console.log("markers reset")
+    console.log(markersArray.length)
+    markersArray = []
+    console.log("markersArray reset to empty")
+    console.log(markersArray.length)
 }
 
 
 // function called in fetchObservations
 // renders a marker on the map for each observation in the database and sets an event listener on each for info window
 function renderMarker(obs, map) {
+    console.log("start renderMarker")
+
     let iconColor = function() {
+        console.log("start iconColor")
+
         if (obs.attributes.category.name === "Violations") {
             return 'http://maps.google.com/mapfiles/ms/icons/red.png'
         } else if (obs.attributes.category.name === "Best Practices"){
@@ -257,14 +275,17 @@ function renderMarker(obs, map) {
         icon: iconColor()
       });
 
-    console.log(obsMarker)
+    // console.log(obsMarker)
     markersArray.push(obsMarker)
+    console.log(markersArray.length)
     attachMarkerInfoWindow(obs, obsMarker)
 }
 
 // called in renderMarker function
 // creates an infoWindow for each marker with event listener to open on click
 function attachMarkerInfoWindow(obs, obsMarker) {
+    console.log("start attachMarkerInfoWindow")
+
     let observationDetails = `
         <h6>${obs.attributes.name}</h6>
         <p>${obs.attributes.latitude}, ${obs.attributes.longitude}</p>
