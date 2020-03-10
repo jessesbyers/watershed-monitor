@@ -163,16 +163,18 @@ filterData.addEventListener('click', function() {
                     // creates marker object instance, sets coordinates of marker
                     function placeMarker(latLng, map) {
                         console.log("start placeMarker")
+                        // console.log(latLng)
                         let placeholder = new google.maps.Marker({
                         position: latLng,
                         map: map
                         });
+                        placeholder.setDraggable(true)
                         placeholder.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-pushpin.png')
-                        
-                        newMarkerArray.push(placeholder)
-
+                        // console.log(placeholder)
                         let markerCoordinates = [placeholder.getPosition().lat(), placeholder.getPosition().lng()]
-                        console.log("finish placeMarker")
+                        console.log(markerCoordinates)
+
+                        newMarkerArray.push(placeholder)
 
                         showNewObservationForm(markerCoordinates, map, placeholder)
                     }
@@ -184,6 +186,12 @@ filterData.addEventListener('click', function() {
 
                         document.querySelector("form").reset();
                         form.style.display = "block";
+
+                        // event listener to update placeholder coordinates if marker is dragged
+                        placeholder.addListener('dragend', function () {
+                            placeholder.setPosition({ lat: placeholder.position.lat(), lng: placeholder.position.lng() })
+                            return markerCoordinates = [placeholder.getPosition().lat(), placeholder.getPosition().lng()]
+                        });
 
                         submit.addEventListener('click', function () {
                             event.preventDefault();
