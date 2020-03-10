@@ -122,7 +122,9 @@ function initMap(map) {
                             // response.json();
                         })
                         .then(function(json) {
+                            marker.setVisible(false)
                             marker.setMap(null)
+                            console.log(`marker ${id} deleted`)
                         })
                         .then (alert(`Observation ${id} Successfully Deleted`))
 
