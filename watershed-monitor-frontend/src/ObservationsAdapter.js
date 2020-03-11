@@ -5,8 +5,8 @@ class ObservationsAdapter {
 
 
 
-// function called in addMarkerToDatabase
-// fetches all observation data from database
+    // function called in addMarkerToDatabase
+    // fetches all observation data from database
     fetchObservations(map) {
         fetch(this.baseURL)
             .then(response => response.json())
@@ -48,12 +48,11 @@ class ObservationsAdapter {
     }
 
 
-
+    
 
     // // called in renderMarker function
     // // creates an infoWindow for each marker with event listener to open on click
     attachMarkerInfoWindow(obs, obsMarker) {
-        console.log("start attachMarkerInfoWindow")
         markersArray.push(obsMarker)
 
         let observationDetails = `
