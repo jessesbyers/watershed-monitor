@@ -67,38 +67,28 @@ function initMap(map) {
 // *********************DELETE FUNCTIONS******************************************
 // event listener so user can click "Delete" button when ready to delete an existing observation
 deleteObs.addEventListener('click', function() { 
-    if (deleteObs.innerText === "Delete Data") {
         alert("Double Click a marker on the map to delete the observation.");
-        deleteObs.innerText = "Reset"
-        // event listener on each marker to delete marker on map with mousedown on location
+
         markersArray.forEach(marker => {
 
             let deleteMarkerListener = marker.addListener('dblclick', function(e) {
                 if (confirm("Do you want to delete this observation?") === true) {
-                    deleteMarker(marker)
+                    removeObsFromDatabase(marker)
                 } else {
                     console.log("delete cancelled")
                 }
-            return deleteMarkerListener
             })
         })
-    } else if (deleteObs.innerText === "Reset") {
-        markersArray.map(marker => {
-                google.maps.event.clearListeners(marker, 'dblclick')
-                console.log("reset!")
-                deleteObs.innerText = "Delete Data"
-        })
-    }
 })
 
-function deleteMarker(marker) {
-    console.log("deleteMarker function")
-    markerLocation = [marker.getPosition().lat(), marker.getPosition().lng()]
-    removeObsFromDatabase(marker)
-}
 
 function removeObsFromDatabase(marker) {
     let id = parseInt(marker.label)
+
+    markersArray.map(marker => {
+        google.maps.event.clearListeners(marker, 'dblclick')
+        deleteObs.innerText = "Delete Data"
+})
 
     let configObj = {
         method: "DELETE",

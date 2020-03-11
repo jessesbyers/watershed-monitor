@@ -7,6 +7,10 @@ class Observation {
         this.longitude = longitude
     }
 
+
+
+
+    
     // placeMarker function is called in event listener for adding observations
     // creates marker object instance, sets coordinates of marker
     static placeMarker(latLng, map) {
@@ -64,17 +68,3 @@ class Observation {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
