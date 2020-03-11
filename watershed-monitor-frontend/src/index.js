@@ -141,8 +141,10 @@ filterData.addEventListener('click', function() {
 })
 
 
+
+
 // **********RESET FUNCTION****************
 function resetMarkers(array) {
     array.map(marker => marker.setMap(null))
-    // array = []
+    array = []
 }
