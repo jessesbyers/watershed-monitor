@@ -10,7 +10,7 @@ class Observation {
 
 
 
-    
+
     // placeMarker function is called in event listener for adding observations
     // creates marker object instance, sets coordinates of marker
     static placeMarker(latLng, map) {
@@ -49,7 +49,7 @@ class Observation {
             event.preventDefault();
 
             // build object with data from form and marker to send to backend to create observation instance
-            let newObservation = {
+            let formData = {
                 name: document.getElementById("form_name").value,
                 description: document.getElementById("form_description").value,
                 category_id: parseInt(document.getElementById("category").value),
@@ -57,13 +57,15 @@ class Observation {
                 longitude: markerCoordinates[1]
             }
 
+            let newObservation = new Observation(formData)
+
 
             form.style.display = "none";
             placeholder.setMap(null)
             resetMarkers(newMarkerArray)
             markerCoordinates = []
 
-            observationsAdapter.addMarkerToDatabase(newObservation, map)    
+            observationsAdapter.addMarkerToDatabase(formData, map)    
         })
     }
 
