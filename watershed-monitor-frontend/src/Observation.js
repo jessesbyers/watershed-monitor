@@ -1,5 +1,6 @@
 class Observation {
-    constructor(name, description, category_id, latitude, longitude) {
+    constructor(id, name, description, category_id, latitude, longitude) {
+        this.id = id
         this.name = name
         this.description = description
         this.category_id = category_id
@@ -11,6 +12,62 @@ class Observation {
 // move renderMarker here and info window
 // "this" is obs and
 // building objects and rendering the view
+
+
+
+
+
+
+        // // function called in fetchObservations
+    // // renders a marker on the map for each observation in the database and sets an event listener on each for info window
+    renderMarker(map) {
+        console.log(this)
+
+        let number = function() {return this.id}
+
+        let iconColor = function() {
+            if (this.category_id === 1) {
+                return 'http://maps.google.com/mapfiles/ms/icons/red.png'
+            } else if (this.category_id === 2) {
+                return 'http://maps.google.com/mapfiles/ms/icons/green.png'
+            } else if (this.category_id === 3) {
+                return 'http://maps.google.com/mapfiles/ms/icons/yellow.png'
+            }
+        }
+        
+        let obsMarker = new google.maps.Marker({
+                position: {lat: this.latitude, lng: this.longitude},
+                map: map,
+                label: number.call(this),
+                icon: iconColor.call(this)
+        })
+
+        this.attachMarkerInfoWindow(obsMarker)
+    }
+
+
+
+
+    // // called in renderMarker function
+    // // creates an infoWindow for each marker with event listener to open on click
+    attachMarkerInfoWindow(obsMarker) {
+        console.log(this)
+        console.log(obsMarker)
+        markersArray.push(obsMarker)
+
+        let observationDetails = `
+            <h6>${this.name}</h6>
+            <p>${this.latitude}, ${this.longitude}</p>
+            <p>${this.description}</p>
+        `
+        let infowindow = new google.maps.InfoWindow({
+        content: observationDetails
+        });
+    
+        obsMarker.addListener('click', function() {
+        infowindow.open(obsMarker.get('map'), obsMarker);
+        });
+    }
 
 
     // placeMarker function is called in event listener for adding observations
