@@ -37,6 +37,7 @@ function initMap(map) {
 
     // event listener so user can click "Add" button when ready to create a new observation
     addObs.addEventListener('click', function() { 
+        addObs.disabled = true
         alert("Click on a location on the map to add a new observation.");
         // event listener to place marker on map with click on location
         let addMarkerListener = map.addListener('click', function(e) {
@@ -64,9 +65,9 @@ function initMap(map) {
         markersArray.forEach(marker => {
             marker.addListener('dblclick', function(e) {
                 if (confirm("Do you want to delete this observation?") === true) {
+                    deleteObs.disabled = false
                     return observationsAdapter.removeObsFromDatabase(marker)
                 }
-                deleteObs.disabled = false
             })
         })
     })

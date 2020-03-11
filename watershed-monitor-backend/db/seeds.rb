@@ -1,5 +1,5 @@
 obs1 = {
-    name: "test1",
+    name: "Bedard Farm",
     description: "Manure spread on fields after allowed date",
     latitude: 44.811345,
     longitude: -73.149572,
@@ -7,7 +7,7 @@ obs1 = {
 }
 
 obs2 = {
-    name: "test2",
+    name: "SweetPea Gardens",
     description: "Cover crops used extensively",
     latitude: 44.819235,
     longitude: -73.137827,
@@ -16,7 +16,7 @@ obs2 = {
 
 obs3 = {
     name: "test3",
-    description: "fake data",
+    description: "fake water quality data",
     latitude: 44.808884,
     longitude: -73.169820,
     category_id: 3
@@ -40,7 +40,7 @@ obs5 = {
 
 obs6 = {
     name: "test6",
-    description: "fake data",
+    description: "fake water quality data",
     latitude: 44.935890, 
     longitude: -73.196943,
     category_id: 3

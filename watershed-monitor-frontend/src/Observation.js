@@ -109,6 +109,7 @@ class Observation {
             placeholder.setMap(null)
             resetMarkers(newMarkerArray)
             markerCoordinates = []
+            addObs.disabled = false
 
             observationsAdapter.addMarkerToDatabase(formData, map)    
         })
