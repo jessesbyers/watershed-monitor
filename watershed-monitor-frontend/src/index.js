@@ -1,12 +1,3 @@
-// PROBLEM:
-    // multiple entries are being created everytime an object is added.
-    // might have to do with initMap being called in the script multiple times?
-    // need to go through code and make sure there is no redundancy (DOM content loaded?)
-    // make it so you have to press button to add data to map (show data / filter data button)
-    // markersArray is not really emptying AND all new markers are duplicating with each new one in db
-
-
-
 
 // declaring global variables to be used throughout
                     const BACKEND_URL = "http://localhost:3000"
