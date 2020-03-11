@@ -27,7 +27,10 @@ class Observation {
         let obsMarker = new google.maps.Marker({
                 position: {lat: this.latitude, lng: this.longitude},
                 map: map,
-                label: number.call(this),
+                label: {
+                    text: number.call(this),
+                    fontSize: "8px"
+                },
                 icon: iconColor.call(this)
         })
 
