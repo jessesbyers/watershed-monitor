@@ -83,6 +83,7 @@ function initMap(map) {
 // ************FILTER: Event Listener logic for filtering by category****************
 filterData.addEventListener('click', function() { 
     filter.style.display = "block";
+    filterData.disabled = true
 
     filterSubmit.addEventListener('click', function(){
         event.preventDefault();
@@ -99,6 +100,7 @@ filterData.addEventListener('click', function() {
             }
         })
         filter.style.display = "none";
+        filterData.disabled = false
     })
 })
 
