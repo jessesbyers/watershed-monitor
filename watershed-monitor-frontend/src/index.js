@@ -15,6 +15,9 @@
                     let newMarkerArray = []
                     let view = document.getElementById("view")
 
+                    const observationsAdapter =  new ObservationsAdapter("http://localhost:3000/observations")
+
+
 
 // initMap function is called in script tag on index.html as page is loaded: 
 // Initiates rendering of the map on the DOM, and sets event listener for adding maps
@@ -47,12 +50,10 @@ function initMap(map) {
         view.style.display = "none"
         filterData.style.display = "block"
 
-        fetchObservations(map)
-        renderMarker(obs, map)
+        observationsAdapter.fetchObservations(map)
     })
 
     return map = new google.maps.Map(document.getElementById('map'), {zoom: 12, center: mapCenter});
-
 }
 
 
@@ -243,25 +244,6 @@ filterData.addEventListener('click', function() {
 
                     }
 
-// function called in addMarkerToDatabase
-// fetches all observation data from database
-function fetchObservations(map) {
-    console.log("start fetchObservations")
-
-    fetch(`${BACKEND_URL}/observations`)
-        .then(response => response.json())
-        .then(json => {
-            let observations = json.data
-            // console.log(observations)
-
-            observations.forEach(obs => {
-                renderMarker(obs, map, markersArray)
-            })
-        })
-        console.log("finish fetchObservations")
-
-}
-
 function resetMarkers(array, map) {
     console.log("start resetMarkers")
     console.log(map)
@@ -275,91 +257,3 @@ function resetMarkers(array, map) {
     console.log("finish resetMarkers")
 
 }
-
-
-// function called in fetchObservations
-// renders a marker on the map for each observation in the database and sets an event listener on each for info window
-function renderMarker(obs, map, markersArray) {
-    console.log("start renderMarker")
-
-    let iconColor = function() {
-        console.log("start iconColor")
-
-        if (obs.attributes.category.name === "Violations") {
-            return 'http://maps.google.com/mapfiles/ms/icons/red.png'
-        } else if (obs.attributes.category.name === "Best Practices"){
-            return 'http://maps.google.com/mapfiles/ms/icons/green.png'
-        } else if (obs.attributes.category.name === "Water Quality Data"){
-            return 'http://maps.google.com/mapfiles/ms/icons/yellow.png'
-        }
-    }
-
-    console.log(markersArray.length)
-    let obsMarker = new google.maps.Marker({
-        position: {lat: obs.attributes.latitude, lng: obs.attributes.longitude},
-        map: map,
-        label: obs.id, 
-        icon: iconColor()
-      });
-
-    // console.log(obsMarker)
-
-    console.log("finish renderMarker")
-
-    attachMarkerInfoWindow(obs, obsMarker)
-}
-
-// called in renderMarker function
-// creates an infoWindow for each marker with event listener to open on click
-function attachMarkerInfoWindow(obs, obsMarker) {
-    console.log("start attachMarkerInfoWindow")
-    markersArray.push(obsMarker)
-    console.log(markersArray.length)
-
-    let observationDetails = `
-        <h6>${obs.attributes.name}</h6>
-        <p>${obs.attributes.latitude}, ${obs.attributes.longitude}</p>
-        <p>${obs.attributes.description}</p>
-    `
-    let infowindow = new google.maps.InfoWindow({
-      content: observationDetails
-    });
-
-    console.log("finish attachMarkerInfoWindow")
-
-  
-    obsMarker.addListener('click', function() {
-      infowindow.open(obsMarker.get('map'), obsMarker);
-    });
-}
-
-// need to create about / how to navigate site
-
-
-
-
-
-// ------------ FETCH CALLS ---------------------------------
-
-// takes in argument of map and uses map.id in url for fetch
-// function getViolationsOnMap(map) {
-//     fetch(`${BACKEND_URL}/categories/1`)
-//     .then(response => response.json())
-//     .then(json => {
-//         console.log(json)
-
-//     })
-// }
-        
-
-// fetch(`${BACKEND_URL}/observations`)
-//   .then(response => response.json())
-//   .then(parsedResponse => console.log(parsedResponse));
-
-// fetch(`${BACKEND_URL}/observations/1`)
-//   .then(response => response.json())
-//   .then(parsedResponse => console.log(parsedResponse));
-
-// fetch(`${BACKEND_URL}/categories`)
-//   .then(response => response.json())
-//   .then(parsedResponse => console.log(parsedResponse));
