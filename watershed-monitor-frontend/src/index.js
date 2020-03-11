@@ -73,7 +73,7 @@ deleteObs.addEventListener('click', function() {
 
             let deleteMarkerListener = marker.addListener('dblclick', function(e) {
                 if (confirm("Do you want to delete this observation?") === true) {
-                    removeObsFromDatabase(marker)
+                    observationsAdapter.removeObsFromDatabase(marker)
                 } else {
                     console.log("delete cancelled")
                 }
@@ -82,35 +82,35 @@ deleteObs.addEventListener('click', function() {
 })
 
 
-function removeObsFromDatabase(marker) {
-    let id = parseInt(marker.label)
+// function removeObsFromDatabase(marker) {
+//     let id = parseInt(marker.label)
 
-    markersArray.map(marker => {
-        google.maps.event.clearListeners(marker, 'dblclick')
-        deleteObs.innerText = "Delete Data"
-})
+//     markersArray.map(marker => {
+//         google.maps.event.clearListeners(marker, 'dblclick')
+//         deleteObs.innerText = "Delete Data"
+// })
 
-    let configObj = {
-        method: "DELETE",
-        headers: 
-        {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-        },
-    };
+//     let configObj = {
+//         method: "DELETE",
+//         headers: 
+//         {
+//         "Content-Type": "application/json",
+//         "Accept": "application/json"
+//         },
+//     };
 
-    fetch(`${BACKEND_URL}/observations/${id}`, configObj) 
-    .then(function(response) {
-        // response.json();
-    })
-    .then(function(json) {
-        marker.setVisible(false)
-        marker.setMap(null)
-        console.log(`marker ${id} deleted`)
-    })
-    .then (alert(`Observation ${id} Successfully Deleted`))
+//     fetch(`${BACKEND_URL}/observations/${id}`, configObj) 
+//     .then(function(response) {
+//         // response.json();
+//     })
+//     .then(function(json) {
+//         marker.setVisible(false)
+//         marker.setMap(null)
+//         console.log(`marker ${id} deleted`)
+//     })
+//     .then (alert(`Observation ${id} Successfully Deleted`))
 
-}
+// }
 
 
 

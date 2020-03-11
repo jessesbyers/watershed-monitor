@@ -8,17 +8,7 @@ class Observation {
         this.longitude = longitude
     }
 
-
-// move renderMarker here and info window
-// "this" is obs and
-// building objects and rendering the view
-
-
-
-
-
-
-        // // function called in fetchObservations
+    // // function called in fetchObservations
     // // renders a marker on the map for each observation in the database and sets an event listener on each for info window
     renderMarker(map) {
         console.log(this)
@@ -51,8 +41,6 @@ class Observation {
     // // called in renderMarker function
     // // creates an infoWindow for each marker with event listener to open on click
     attachMarkerInfoWindow(obsMarker) {
-        console.log(this)
-        console.log(obsMarker)
         markersArray.push(obsMarker)
 
         let observationDetails = `
@@ -117,7 +105,6 @@ class Observation {
             }
 
             let newObservation = new Observation(formData)
-
 
             form.style.display = "none";
             placeholder.setMap(null)

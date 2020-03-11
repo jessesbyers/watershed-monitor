@@ -11,66 +11,13 @@ class ObservationsAdapter {
             .then(response => response.json())
             .then(json => {
                 let observations = json.data
-                console.log(observations)
 
                 observations.forEach(obs => {
-                    console.log(obs)
                     let observation = new Observation(obs.id, obs.attributes.name, obs.attributes.description, obs.attributes.category_id, obs.attributes.latitude, obs.attributes.longitude)
-                    console.log(observation)
                     observation.renderMarker(map)
                 })
             })
     }
-
-
-
-
-    // // // function called in fetchObservations
-    // // // renders a marker on the map for each observation in the database and sets an event listener on each for info window
-    // renderMarker(obs, map) {
-
-    //     let iconColor = function() {
-
-    //         if (obs.attributes.category.name === "Violations") {
-    //             return 'http://maps.google.com/mapfiles/ms/icons/red.png'
-    //         } else if (obs.attributes.category.name === "Best Practices"){
-    //             return 'http://maps.google.com/mapfiles/ms/icons/green.png'
-    //         } else if (obs.attributes.category.name === "Water Quality Data"){
-    //             return 'http://maps.google.com/mapfiles/ms/icons/yellow.png'
-    //         }
-    //     }
-
-    //     let obsMarker = new google.maps.Marker({
-    //         position: {lat: obs.attributes.latitude, lng: obs.attributes.longitude},
-    //         map: map,
-    //         label: obs.id, 
-    //         icon: iconColor()
-    //     });
-
-    //     this.attachMarkerInfoWindow(obs, obsMarker)
-    // }
-
-
-
-
-    // // // called in renderMarker function
-    // // // creates an infoWindow for each marker with event listener to open on click
-    // attachMarkerInfoWindow(obs, obsMarker) {
-    //     markersArray.push(obsMarker)
-
-    //     let observationDetails = `
-    //         <h6>${obs.attributes.name}</h6>
-    //         <p>${obs.attributes.latitude}, ${obs.attributes.longitude}</p>
-    //         <p>${obs.attributes.description}</p>
-    //     `
-    //     let infowindow = new google.maps.InfoWindow({
-    //     content: observationDetails
-    //     });
-    
-    //     obsMarker.addListener('click', function() {
-    //     infowindow.open(obsMarker.get('map'), obsMarker);
-    //     });
-    // }
 
 
 
@@ -94,9 +41,7 @@ class ObservationsAdapter {
                 return response.json()
             })
             .then(json => {
-                console.log(json)
                 let obs = json.data
-                console.log(obs.id)
                 let observation = new Observation(obs.id, obs.attributes.name, obs.attributes.description, obs.attributes.category_id, obs.attributes.latitude, obs.attributes.longitude)
                 observation.renderMarker(map)
             })
@@ -105,4 +50,40 @@ class ObservationsAdapter {
                 console.log(error.message);
             });
     }
+
+
+// *************DELETE fetch logic*********************
+    removeObsFromDatabase(marker) {
+        console.log(marker)
+        let id = parseInt(marker.label)
+    
+        markersArray.map(marker => {
+            google.maps.event.clearListeners(marker, 'dblclick')
+            deleteObs.innerText = "Delete Data"
+    })
+    
+        let configObj = {
+            method: "DELETE",
+            headers: 
+            {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+            },
+        };
+    
+        fetch(`${this.baseURL}/${id}`, configObj) 
+        .then(function(response) {
+            // response.json();
+        })
+        .then(function(json) {
+            marker.setVisible(false)
+            marker.setMap(null)
+            console.log(`marker ${id} deleted`)
+        })
+        .then (alert(`Observation ${id} Successfully Deleted`))
+    
+    }
+
+
+
 }
