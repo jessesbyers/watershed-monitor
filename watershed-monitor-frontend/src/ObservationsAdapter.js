@@ -4,7 +4,6 @@ class ObservationsAdapter {
     }
 
 
-
     // function called in addMarkerToDatabase
     // fetches all observation data from database
     fetchObservations(map) {
@@ -48,7 +47,7 @@ class ObservationsAdapter {
     }
 
 
-    
+
 
     // // called in renderMarker function
     // // creates an infoWindow for each marker with event listener to open on click
@@ -67,5 +66,34 @@ class ObservationsAdapter {
         obsMarker.addListener('click', function() {
         infowindow.open(obsMarker.get('map'), obsMarker);
         });
+    }
+
+
+
+
+    // addMarkerToDatabase function called in ShowNewObservationForm function
+    // sends a post request to backend to create new observation instance from formData and persist it in the database
+    addMarkerToDatabase(newObservation, map) {
+
+        let configObj = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(newObservation)
+        };
+
+        return fetch(this.baseURL, configObj)
+            .then(function(response) {
+                // response.json()
+            })
+            .then(function() {
+                observationsAdapter.fetchObservations(map)
+            })
+            .catch(function(error) {
+                alert("ERROR! Please Try Again");
+                console.log(error.message);
+            });
     }
 }
