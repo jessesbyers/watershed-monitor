@@ -58,7 +58,6 @@ class ObservationsAdapter {
     
         markersArray.map(marker => {
             google.maps.event.clearListeners(marker, 'dblclick')
-            deleteObs.innerText = "Delete Data"
     })
     
         let configObj = {
@@ -77,9 +76,7 @@ class ObservationsAdapter {
         .then(function(json) {
             marker.setVisible(false)
             marker.setMap(null)
-            console.log(`marker ${id} deleted`)
         })
-        .then (alert(`Observation ${id} Successfully Deleted`))
     }
 
 }
