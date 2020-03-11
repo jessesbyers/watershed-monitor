@@ -53,25 +53,29 @@ function initMap(map) {
         observationsAdapter.fetchObservations(map)
     })
 
-    return map = new google.maps.Map(document.getElementById('map'), {zoom: 12, center: mapCenter});
+    map = new google.maps.Map(document.getElementById('map'), {zoom: 12, center: mapCenter});
+
+
+    // *********************DELETE: Event Listener logic for delete function******************************************
+    deleteObs.addEventListener('click', function() { 
+        deleteObs.disabled = true
+        alert("Double Click a marker on the map to delete the observation.");
+
+        markersArray.forEach(marker => {
+            marker.addListener('dblclick', function(e) {
+                if (confirm("Do you want to delete this observation?") === true) {
+                    return observationsAdapter.removeObsFromDatabase(marker)
+                }
+                deleteObs.disabled = false
+            })
+        })
+    })
 }
 
 
 
 
-// *********************DELETE: Event Listener logic for delete function******************************************
-deleteObs.addEventListener('click', function() { 
-    alert("Double Click a marker on the map to delete the observation.");
 
-    markersArray.forEach(marker => {
-
-        marker.addListener('dblclick', function(e) {
-            if (confirm("Do you want to delete this observation?") === true) {
-                observationsAdapter.removeObsFromDatabase(marker)
-            }
-        })
-    })
-})
 
 
 

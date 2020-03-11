@@ -54,7 +54,7 @@ class ObservationsAdapter {
 // *************FETCH (DELETE) CALL TO DELETE OBSERVATION FROM DATABASE AND REMOVE FROM MAP*********************
     removeObsFromDatabase(marker) {
         console.log(marker)
-        let id = parseInt(marker.label)
+        let id = parseInt(marker.label.text)
     
         markersArray.map(marker => {
             google.maps.event.clearListeners(marker, 'dblclick')
