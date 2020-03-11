@@ -124,7 +124,7 @@ filterData.addEventListener('click', function() {
 
     filterSubmit.addEventListener('click', function(){
         event.preventDefault();
-        markersArray.map(marker => {
+        markersArray.forEach(marker => {
             marker.setVisible(false)
             if (document.getElementById('cat_1').checked && marker.icon === "http://maps.google.com/mapfiles/ms/icons/red.png") {
                 marker.setVisible(true)

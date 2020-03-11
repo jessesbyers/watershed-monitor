@@ -8,7 +8,9 @@ class Observation {
     }
 
 
-
+// move renderMarker here and info window
+// "this" is obs and
+// building objects and rendering the view
 
 
     // placeMarker function is called in event listener for adding observations

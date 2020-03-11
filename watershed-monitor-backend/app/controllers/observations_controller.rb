@@ -7,6 +7,7 @@ class ObservationsController < ApplicationController
     def create 
         observation = Observation.new(observation_params)
         observation.save
+        render json: ObservationSerializer.new(observation)
     end
 
 

@@ -11,6 +11,7 @@ class ObservationsAdapter {
             .then(response => response.json())
             .then(json => {
                 let observations = json.data
+                console.log(observations)
 
                 observations.forEach(obs => {
                     this.renderMarker(obs, map, markersArray)
@@ -84,12 +85,13 @@ class ObservationsAdapter {
             body: JSON.stringify(newObservation)
         };
 
-        return fetch(this.baseURL, configObj)
+
+        fetch(this.baseURL, configObj)
             .then(function(response) {
-                // response.json()
+                return response.json()
             })
-            .then(function() {
-                observationsAdapter.fetchObservations(map)
+            .then(json => {
+                observationsAdapter.renderMarker(json.data, map)
             })
             .catch(function(error) {
                 alert("ERROR! Please Try Again");
