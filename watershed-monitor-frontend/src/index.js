@@ -21,11 +21,9 @@
 
 
 
-
-
 // *******************SETTING UP THE MAP***************************************
 // initMap function is called in script tag on index.html as page is loaded: 
-// Initiates rendering of the map on the DOM, and sets event listener for adding maps
+// Initiates rendering of the map on the DOM, and sets event listener for adding new observations to map
 function initMap(map) {
     form.style.display = "none";
     filter.style.display = "none";
@@ -61,64 +59,23 @@ function initMap(map) {
 
 
 
-
-
-
-// *********************DELETE FUNCTIONS******************************************
-// event listener so user can click "Delete" button when ready to delete an existing observation
+// *********************DELETE: Event Listener logic for delete function******************************************
 deleteObs.addEventListener('click', function() { 
-        alert("Double Click a marker on the map to delete the observation.");
+    alert("Double Click a marker on the map to delete the observation.");
 
-        markersArray.forEach(marker => {
+    markersArray.forEach(marker => {
 
-            let deleteMarkerListener = marker.addListener('dblclick', function(e) {
-                if (confirm("Do you want to delete this observation?") === true) {
-                    observationsAdapter.removeObsFromDatabase(marker)
-                } else {
-                    console.log("delete cancelled")
-                }
-            })
+        marker.addListener('dblclick', function(e) {
+            if (confirm("Do you want to delete this observation?") === true) {
+                observationsAdapter.removeObsFromDatabase(marker)
+            }
         })
+    })
 })
 
 
-// function removeObsFromDatabase(marker) {
-//     let id = parseInt(marker.label)
 
-//     markersArray.map(marker => {
-//         google.maps.event.clearListeners(marker, 'dblclick')
-//         deleteObs.innerText = "Delete Data"
-// })
-
-//     let configObj = {
-//         method: "DELETE",
-//         headers: 
-//         {
-//         "Content-Type": "application/json",
-//         "Accept": "application/json"
-//         },
-//     };
-
-//     fetch(`${BACKEND_URL}/observations/${id}`, configObj) 
-//     .then(function(response) {
-//         // response.json();
-//     })
-//     .then(function(json) {
-//         marker.setVisible(false)
-//         marker.setMap(null)
-//         console.log(`marker ${id} deleted`)
-//     })
-//     .then (alert(`Observation ${id} Successfully Deleted`))
-
-// }
-
-
-
-
-
-
-// ************FILTER FUNCTIONS****************
-// Event listener for filtering data by category
+// ************FILTER: Event Listener logic for filtering by category****************
 filterData.addEventListener('click', function() { 
     filter.style.display = "block";
 
@@ -142,8 +99,7 @@ filterData.addEventListener('click', function() {
 
 
 
-
-// **********RESET FUNCTION****************
+// **********RESET: Resets markers on map to prevent duplicate markers****************
 function resetMarkers(array) {
     array.map(marker => marker.setMap(null))
     array = []

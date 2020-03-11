@@ -8,8 +8,7 @@ class Observation {
         this.longitude = longitude
     }
 
-    // // function called in fetchObservations
-    // // renders a marker on the map for each observation in the database and sets an event listener on each for info window
+    // ******************RENDERS INDIVIDUAL MARKER ON MAP FROM OBSERVATION OBJECT PROPERTIES*********************
     renderMarker(map) {
         console.log(this)
 
@@ -37,8 +36,7 @@ class Observation {
 
 
 
-
-    // // called in renderMarker function
+    // ******************CREATES INFO WINDOW ON EACH MARKER AND SETS EVENT LISTENER TO VIEW DETAILS*********************
     // // creates an infoWindow for each marker with event listener to open on click
     attachMarkerInfoWindow(obsMarker) {
         markersArray.push(obsMarker)
@@ -58,8 +56,8 @@ class Observation {
     }
 
 
-    // placeMarker function is called in event listener for adding observations
-    // creates marker object instance, sets coordinates of marker
+
+    // ******************SETS PLACEHOLDER MARKER TO GET COORDINATES FOR NEW OBSERVATION*********************
     static placeMarker(latLng, map) {
         let placeholder = new google.maps.Marker({
         position: latLng,
@@ -77,9 +75,7 @@ class Observation {
 
 
 
-
-    // showNewObservationForm is called in placeMarker function
-    // displays form to collect observation data from user, created formData object, and hides form
+    // ******************DISPLAYS NEW OBSERVATION FORM AND CREATES OBSERVATION OBJECT WITH DATA*********************
     static showNewObservationForm(markerCoordinates, map, placeholder) {
 
         document.querySelector("form").reset();

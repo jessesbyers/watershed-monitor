@@ -4,8 +4,7 @@ class ObservationsAdapter {
     }
 
 
-    // function called in addMarkerToDatabase
-    // fetches all observation data from database
+    // *****************FETCHES ALL EXISTING OBSERVATIONS FROM DATABASE******************************
     fetchObservations(map) {
         fetch(this.baseURL)
             .then(response => response.json())
@@ -21,7 +20,7 @@ class ObservationsAdapter {
 
 
 
-
+    // ********************FETCH (POST) TO PERSIST NEW OBSERVATION TO DATABASE**********************************
     // addMarkerToDatabase function called in ShowNewObservationForm function
     // sends a post request to backend to create new observation instance from formData and persist it in the database
     addMarkerToDatabase(newObservation, map) {
@@ -52,7 +51,7 @@ class ObservationsAdapter {
     }
 
 
-// *************DELETE fetch logic*********************
+// *************FETCH (DELETE) CALL TO DELETE OBSERVATION FROM DATABASE AND REMOVE FROM MAP*********************
     removeObsFromDatabase(marker) {
         console.log(marker)
         let id = parseInt(marker.label)
@@ -81,9 +80,6 @@ class ObservationsAdapter {
             console.log(`marker ${id} deleted`)
         })
         .then (alert(`Observation ${id} Successfully Deleted`))
-    
     }
-
-
 
 }
