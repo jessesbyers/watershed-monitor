@@ -10,10 +10,10 @@ class Observation {
 
     // ******************RENDERS INDIVIDUAL MARKER ON MAP FROM OBSERVATION OBJECT PROPERTIES*********************
     renderMarker(map) {
-        console.log(this)
-
+        // set label number to match ID in database
         let number = function() {return this.id}
 
+        // set marker color by category
         let iconColor = function() {
             if (this.category_id === 1) {
                 return 'http://maps.google.com/mapfiles/ms/icons/red.png'
@@ -24,6 +24,7 @@ class Observation {
             }
         }
         
+        // using information fetched from database to create google maps marker object
         let obsMarker = new google.maps.Marker({
                 position: {lat: this.latitude, lng: this.longitude},
                 map: map,
@@ -40,19 +41,22 @@ class Observation {
 
 
     // ******************CREATES INFO WINDOW ON EACH MARKER AND SETS EVENT LISTENER TO VIEW DETAILS*********************
-    // // creates an infoWindow for each marker with event listener to open on click
     attachMarkerInfoWindow(obsMarker) {
         markersArray.push(obsMarker)
 
+        // generating text for info window attached to individual marker
         let observationDetails = `
             <h6>${this.name}</h6>
             <p>${this.latitude}, ${this.longitude}</p>
             <p>${this.description}</p>
         `
+
+        // creating google maps info window object for marker
         let infowindow = new google.maps.InfoWindow({
         content: observationDetails
         });
     
+        // event listener so info window can be opened with click on marker
         obsMarker.addListener('click', function() {
         infowindow.open(obsMarker.get('map'), obsMarker);
         });
@@ -81,20 +85,21 @@ class Observation {
     // ******************DISPLAYS NEW OBSERVATION FORM AND CREATES OBSERVATION OBJECT WITH DATA*********************
     static showNewObservationForm(markerCoordinates, map, placeholder) {
 
+        // clear old form values and display form
         document.querySelector("form").reset();
         form.style.display = "block";
 
-        // event listener to update placeholder coordinates if marker is dragged
+        // event listener to update placeholder coordinates if pushpin is dragged to new location
         placeholder.addListener('dragend', function () {
             placeholder.setPosition({ lat: placeholder.position.lat(), lng: placeholder.position.lng() })
-
             return markerCoordinates = [placeholder.getPosition().lat(), placeholder.getPosition().lng()]
         });
 
+        // event listener to submit form data when submit button is clicked
         submit.addEventListener('click', function () {
             event.preventDefault();
 
-            // build object with data from form and marker to send to backend to create observation instance
+            // build new observation object with data from form and placeholder marker (to send to backend to create observation instance)
             let formData = {
                 name: document.getElementById("form_name").value,
                 description: document.getElementById("form_description").value,
@@ -105,6 +110,7 @@ class Observation {
 
             let newObservation = new Observation(formData)
 
+            // hide form and remove placeholder pushpin so new observation can be added to and rendered from the database
             form.style.display = "none";
             placeholder.setMap(null)
             resetMarkers(newMarkerArray)
