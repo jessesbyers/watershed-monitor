@@ -30,10 +30,8 @@ function initMap(map) {
     filterData.style.display = "none"
 
     // Set center of map for home view
-    // let mapCenter =  { lat: 45, lng: -90} 
-    let mapCenter =  { lat: 44.8007, lng: -73.100} 
-    // set zoom 12 for local view, zoom 3 for North America
-    // let map = new google.maps.Map(document.getElementById('map'), {zoom: 3, center: mapCenter});
+    let mapCenter =  { lat: 45, lng: -90} 
+    map = new google.maps.Map(document.getElementById('map'), {zoom: 3, center: mapCenter});
 
     // event listener so user can click "Add" button when ready to create a new observation
     addObs.addEventListener('click', function() { 
@@ -53,8 +51,6 @@ function initMap(map) {
 
         observationsAdapter.fetchObservations(map)
     })
-
-    map = new google.maps.Map(document.getElementById('map'), {zoom: 12, center: mapCenter});
 
 
     // *********************DELETE: Event Listener logic for delete function******************************************
