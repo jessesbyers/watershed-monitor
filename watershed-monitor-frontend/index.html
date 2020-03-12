@@ -5,14 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
+    <!-- Loading bootstrap and custom stylesheets -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous"> </head>
     <link rel="stylesheet" href="styles.css">
 
-
-
     <title>Watershed Monitor</title>
   </head>
+
+
   <body>
+    <!-- Navbar Buttons and Minimenu for smaller screens -->
     <nav id='mainNav' class='navbar navbar-full  navbar-dark bg-faded navbar-fixed-top'>
         <h1 class="float-xs-right text-light">Watershed Monitor</h1>
         <button class='navbar-toggler hidden-sm-up light float-xs-top' type='button' data-toggle='collapse' data-target='#minimenu'></button>
@@ -28,7 +30,7 @@
     </nav>
 
 
-
+    <!-- Header #1: New Observation Form -->
     <header class="htop" id="form">
       <form>
         <label for="name">Location Name</label>
@@ -49,7 +51,7 @@
     </header>
 
 
-
+    <!-- Header #2: Filter by Category -->
     <header class="htop" id="filter">
       <input type="checkbox" id="cat_1" name="cat_1" value="1"> 
       <label for="cat_1">Violations      </label>
@@ -64,7 +66,7 @@
     </header>
 
 
-
+    <!-- Header #3: About section -->
     <header class="htop" id="about_section">
       <input type="submit" name="about" id="about_submit" value="Close" class="btn btn-outline-primary">
 
@@ -89,7 +91,7 @@
 
 
     <div class = "map" id="map">
-      <!-- map rendered here -->
+      <!-- Map rendered here -->
     </div>
 
 
@@ -98,20 +100,20 @@
 
 
 
-    <!-- loading javascript files -->
+    <!-- Loading javascript files -->
     <script type="application/javascript" src="src/ObservationsAdapter.js" ></script>
     <script type="application/javascript" src="src/Observation.js" ></script>
     <script type="application/javascript" src="src/index.js" ></script>
 
 
 
-    <!-- script for initializing the map render via a callback function to initMap-->
+    <!-- Script for initializing the map render via a callback function to initMap()-->
     <script id="api" async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4WPYmC60DsKf3lkbaTfDVP9KzA9Ny9I&callback=initMap"
     type="text/javascript"></script>
 
 
-    
-    <!-- loading bootstrap files -->
+
+    <!-- Loading bootstrap files -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
