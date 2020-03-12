@@ -23,19 +23,18 @@ html, body {
 }
 
 .htop {
-    background-color: rgb(0, 0, 0) transparent;
-    padding: 10px;
-    color: white;
-}
+    /* background-color: rgb(0, 0, 0) transparent; */
+    background-color: white;
 
-.htop {
+    padding: 10px;
+    color: black;
     position: relative;
     margin-top: 50px;
     width: 100%;
     text-align: center;
     min-height: auto;
     background-size: cover;
-    color: white;
+    color: black;
     font-size: 1em;
     padding: 3em;
 }
@@ -64,27 +63,3 @@ h1.float-xs-right {
 form, label {
     color: black;
 }
-
-
-/* .field_with_errors {
-    padding: 2px;
-    background-color: red;
-    display: table;
-}
-
-#error_explanation {
-    color: red;
-}
-
-.form-control.is-invalid {
-    border: 1px solid red;
-}
-
-.invalid-feedback {
-    color: red;
-} */
-
-/* body {
-    height: 90%;
-    width: 100%;
-} */

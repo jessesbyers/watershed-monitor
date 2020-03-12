@@ -6,8 +6,11 @@
     let addObs = document.getElementById("add_obs")
     let deleteObs = document.getElementById("delete_obs")
     let filterData = document.getElementById("filter_data")
+    let about = document.getElementById("about")
     let form = document.querySelector("header#form")
     let filter = document.querySelector("header#filter")
+    let aboutSection = document.querySelector("header#about_section")
+    let aboutSubmit = document.getElementById("about_submit")
 
     let submit = document.getElementById("submit_observation")
     let filterSubmit = document.getElementById("filter_submit")
@@ -28,6 +31,8 @@ function initMap(map) {
     form.style.display = "none";
     filter.style.display = "none";
     filterData.style.display = "none"
+    aboutSection.style.display = "none";
+
 
     // Set center of map for home view
     let mapCenter =  { lat: 45, lng: -90} 
@@ -65,6 +70,19 @@ function initMap(map) {
                     return observationsAdapter.removeObsFromDatabase(marker)
                 }
             })
+        })
+    })
+
+
+    about.addEventListener('click', function() {
+        console.log("about event listener works")
+        aboutSection.style.display = "block";
+        about.disabled = true
+
+        aboutSubmit.addEventListener("click", function () {
+            console.log("click")
+            aboutSection.style.display = "none";
+            about.disabled = false
         })
     })
 }
