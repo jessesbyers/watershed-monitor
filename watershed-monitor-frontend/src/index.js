@@ -2,21 +2,21 @@
 // ******************VARIABLES***********************
     const BACKEND_URL = "http://localhost:3000"
     // navbar buttons
-    let addObs = document.getElementById("add_obs")
-    let deleteObs = document.getElementById("delete_obs")
-    let filterData = document.getElementById("filter_data")
-    let view = document.getElementById("view")
-    let about = document.getElementById("about")
+    const addObs = document.getElementById("add_obs")
+    const deleteObs = document.getElementById("delete_obs")
+    const filterData = document.getElementById("filter_data")
+    const view = document.getElementById("view")
+    const about = document.getElementById("about")
 
     // headers sections to hide and make visible
-    let form = document.querySelector("header#form")
-    let filter = document.querySelector("header#filter")
-    let aboutSection = document.querySelector("header#about_section")
+    const form = document.querySelector("header#form")
+    const filter = document.querySelector("header#filter")
+    const aboutSection = document.querySelector("header#about_section")
 
     // submit buttons
-    let aboutSubmit = document.getElementById("about_submit")
-    let submit = document.getElementById("submit_observation")
-    let filterSubmit = document.getElementById("filter_submit")
+    const aboutSubmit = document.getElementById("about_submit")
+    const submit = document.getElementById("submit_observation")
+    const filterSubmit = document.getElementById("filter_submit")
 
     let map
     let markersArray = []
