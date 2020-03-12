@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous"> </head>
     <link rel="stylesheet" href="styles.css">
 
+
+
     <title>Watershed Monitor</title>
   </head>
   <body>
@@ -24,6 +26,8 @@
                 </ul>
             </div>
     </nav>
+
+
 
     <header class="htop" id="form">
       <form>
@@ -44,6 +48,8 @@
       </form>  
     </header>
 
+
+
     <header class="htop" id="filter">
       <input type="checkbox" id="cat_1" name="cat_1" value="1"> 
       <label for="cat_1">Violations      </label>
@@ -57,10 +63,27 @@
       <input type="submit" name="filter" id="filter_submit" value="Filter Data" class="btn btn-outline-primary">
     </header>
 
-    <header class="htop" id="about_section">
-      <h1>About</h1>
 
+
+    <header class="htop" id="about_section">
       <input type="submit" name="about" id="about_submit" value="Close" class="btn btn-outline-primary">
+
+      <h6>The Watershed Monitor App allows the public to report observations related to Water Conservation Best Practices, Violations, and Water Quality Data.</h6>
+      <h6>Use the map to explore data reported by others, and to report your own observations.</h6>
+      
+      <h4>View</h4>
+        <li>View all of the observations that have been added to the map. Click on a marker to view observation details.</li>
+        <li>Use the google maps navigation buttons, double-click to zoom in, and drag the map to re-center.</li>
+
+      <h4>Filter</h4>
+        <li>Filter data by category: Violations (red), Best Practices (green), and Water Quality Data (yellow).</li>
+
+      <h4>Add</h4>
+        <li>Add an observation by clicking a location on the map and dragging the pushpin to the precise location.</li>
+        <li>Type a name, description, and category and submit the form.</li>
+
+      <h4>Delete</h4>
+        <li>Double-click on a marker to permanantly delete that observation from the map and database.</li>
     </header>
 
 
@@ -69,17 +92,25 @@
       <!-- map rendered here -->
     </div>
 
+
+
     <footer class='text-xs-left footer bg-inverse text-white navbar-fixed-bottom'>2020 - Jesse Byers - <a href="https://github.com/jessesbyers/watershed-monitor">Visit Project on GitHub</a></footer>
+
+
 
     <!-- loading javascript files -->
     <script type="application/javascript" src="src/ObservationsAdapter.js" ></script>
     <script type="application/javascript" src="src/Observation.js" ></script>
     <script type="application/javascript" src="src/index.js" ></script>
 
+
+
     <!-- script for initializing the map render via a callback function to initMap-->
     <script id="api" async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv4WPYmC60DsKf3lkbaTfDVP9KzA9Ny9I&callback=initMap"
     type="text/javascript"></script>
 
+
+    
     <!-- loading bootstrap files -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
