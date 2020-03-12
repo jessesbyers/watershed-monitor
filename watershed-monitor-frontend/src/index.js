@@ -40,7 +40,7 @@ function initMap(map) {
     map = new google.maps.Map(document.getElementById('map'), {zoom: 3, center: mapCenter});
 
 
-    
+
     // *********************VIEW: Event Listener logic for viewing observations*****************
     view.addEventListener('click', function() { 
         // replace view button with filter button
@@ -90,12 +90,10 @@ function initMap(map) {
 
 // ************ABOUT: Event Listener logic for showing directions****************
 about.addEventListener('click', function() {
-    console.log("about event listener works")
     aboutSection.style.display = "block";
     about.disabled = true
 
     aboutSubmit.addEventListener("click", function () {
-        console.log("click")
         aboutSection.style.display = "none";
         about.disabled = false
     })
