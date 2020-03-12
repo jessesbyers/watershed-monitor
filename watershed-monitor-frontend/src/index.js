@@ -81,8 +81,6 @@ function initMap(map) {
             })
         })
     })
-
-
 }
 
 

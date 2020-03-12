@@ -36,7 +36,6 @@ class ObservationsAdapter {
             body: JSON.stringify(newObservation)
         };
 
-
         fetch(this.baseURL, configObj)
             .then(function(response) {
                 return response.json()
