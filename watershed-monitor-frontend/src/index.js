@@ -1,56 +1,49 @@
 
 // ******************VARIABLES***********************
-// declaring variables to be used throughout
     const BACKEND_URL = "http://localhost:3000"
-
+    // navbar buttons
     let addObs = document.getElementById("add_obs")
     let deleteObs = document.getElementById("delete_obs")
     let filterData = document.getElementById("filter_data")
+    let view = document.getElementById("view")
     let about = document.getElementById("about")
+
+    // headers sections to hide and make visible
     let form = document.querySelector("header#form")
     let filter = document.querySelector("header#filter")
     let aboutSection = document.querySelector("header#about_section")
-    let aboutSubmit = document.getElementById("about_submit")
 
+    // submit buttons
+    let aboutSubmit = document.getElementById("about_submit")
     let submit = document.getElementById("submit_observation")
     let filterSubmit = document.getElementById("filter_submit")
+
     let map
     let markersArray = []
     let newMarkerArray = []
-    let view = document.getElementById("view")
 
     const observationsAdapter =  new ObservationsAdapter(`${BACKEND_URL}/observations`)
 
 
-
-
 // *******************SETTING UP THE MAP***************************************
 // initMap function is called in script tag on index.html as page is loaded: 
-// Initiates rendering of the map on the DOM, and sets event listener for adding new observations to map
 function initMap(map) {
+    // hide all of the optional headers until user clicks on navbar buttons
     form.style.display = "none";
     filter.style.display = "none";
     filterData.style.display = "none"
     aboutSection.style.display = "none";
 
 
-    // Set center of map for home view
+    // Create google map instance and set center of map and zoon level for home view (North America visible)
     let mapCenter =  { lat: 45, lng: -90} 
     map = new google.maps.Map(document.getElementById('map'), {zoom: 3, center: mapCenter});
 
-    // event listener so user can click "Add" button when ready to create a new observation
-    addObs.addEventListener('click', function() { 
-        addObs.disabled = true
-        alert("Click on a location on the map to add a new observation.");
-        // event listener to place marker on map with click on location
-        let addMarkerListener = map.addListener('click', function(e) {
-            Observation.placeMarker(e.latLng, map);
-            // remove listener so only one marker can be added at a time
-            google.maps.event.removeListener(addMarkerListener)
-        });
-    })
 
+    
+    // *********************VIEW: Event Listener logic for viewing observations*****************
     view.addEventListener('click', function() { 
+        // replace view button with filter button
         view.style.display = "none"
         filterData.style.display = "block"
 
@@ -58,11 +51,27 @@ function initMap(map) {
     })
 
 
+    // *********************ADD: Event Listener logic for adding observations **************
+    addObs.addEventListener('click', function() { 
+        addObs.disabled = true
+        alert("Click on a location on the map to add a new observation.");
+        // Event listener to place marker on map with click on location
+        let addMarkerListener = map.addListener('click', function(e) {
+            Observation.placeMarker(e.latLng, map);
+            // Remove event listener so only one marker can be added at a time
+            google.maps.event.removeListener(addMarkerListener)
+        });
+    })
+
+
+
+
     // *********************DELETE: Event Listener logic for delete function******************************************
     deleteObs.addEventListener('click', function() { 
         deleteObs.disabled = true
         alert("Double Click a marker on the map to delete the observation.");
 
+        // Set an event listener on each marker in the array
         markersArray.forEach(marker => {
             marker.addListener('dblclick', function(e) {
                 if (confirm("Do you want to delete this observation?") === true) {
@@ -74,21 +83,23 @@ function initMap(map) {
     })
 
 
-    about.addEventListener('click', function() {
-        console.log("about event listener works")
-        aboutSection.style.display = "block";
-        about.disabled = true
-
-        aboutSubmit.addEventListener("click", function () {
-            console.log("click")
-            aboutSection.style.display = "none";
-            about.disabled = false
-        })
-    })
 }
 
 
 
+
+// ************ABOUT: Event Listener logic for showing directions****************
+about.addEventListener('click', function() {
+    console.log("about event listener works")
+    aboutSection.style.display = "block";
+    about.disabled = true
+
+    aboutSubmit.addEventListener("click", function () {
+        console.log("click")
+        aboutSection.style.display = "none";
+        about.disabled = false
+    })
+})
 
 
 
