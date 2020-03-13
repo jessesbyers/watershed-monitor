@@ -99,16 +99,23 @@ class Observation {
         submit.addEventListener('click', function () {
             event.preventDefault();
 
-            // build new observation object with data from form and placeholder marker (to send to backend to create observation instance)
-            let formData = {
-                name: document.getElementById("form_name").value,
-                description: document.getElementById("form_description").value,
-                category_id: parseInt(document.getElementById("category").value),
-                latitude: markerCoordinates[0],
-                longitude: markerCoordinates[1]
-            }
+            // if (document.getElementById("form_name").value !== "" && document.getElementById("form_description").value !== "" && document.getElementById("category").value !== "") {
 
-            let newObservation = new Observation(formData)
+                // build new observation object with data from form and placeholder marker (to send to backend to create observation instance)
+                let formData = {
+                    name: document.getElementById("form_name").value,
+                    description: document.getElementById("form_description").value,
+                    category_id: parseInt(document.getElementById("category").value),
+                    latitude: markerCoordinates[0],
+                    longitude: markerCoordinates[1]
+                }
+
+                // observationsAdapter.addMarkerToDatabase(formData, map)    
+
+            // } else {
+            //     alert("Please fill out the form completely")
+            // }
+
 
             // hide form and remove placeholder pushpin so new observation can be added to and rendered from the database
             form.style.display = "none";
