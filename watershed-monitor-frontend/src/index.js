@@ -1,7 +1,7 @@
 
 // ******************VARIABLES***********************
     const BACKEND_URL = "http://localhost:3000"
-    // navbar buttons
+    // navbar buttons 
     const addObs = document.getElementById("add_obs")
     const deleteObs = document.getElementById("delete_obs")
     const filterData = document.getElementById("filter_data")
