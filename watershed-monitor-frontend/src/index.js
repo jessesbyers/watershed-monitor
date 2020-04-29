@@ -1,6 +1,8 @@
 
 // ******************VARIABLES***********************
-    const BACKEND_URL = "http://localhost:3000"
+    // const BACKEND_URL = "http://localhost:3000"
+    const BACKEND_URL = "https://watershed-monitor-api.herokuapp.com/"
+
     // navbar buttons 
     const addObs = document.getElementById("add_obs")
     const deleteObs = document.getElementById("delete_obs")
